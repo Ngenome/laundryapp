@@ -113,6 +113,7 @@ const OrderCardy = () => {
   );
 };
 export function Orderdetail() {
+  const [totalItems, setTotalItems] = useState(1);
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const route = useRoute();
@@ -127,7 +128,16 @@ export function Orderdetail() {
         flex: 1,
       }}
     >
-      <Text>Service Type</Text>
+      <Text
+        style={{
+          fontFamily: Theme.fonts.secondary,
+          color: Theme.darkText,
+          fontSize: windowWidth / 30,
+          textAlign: "left",
+        }}
+      >
+        Service Type
+      </Text>
       <View
         style={{
           backgroundColor: "white",
@@ -176,7 +186,7 @@ export function Orderdetail() {
             style={{
               fontFamily: Theme.fonts.secondary,
               color: Theme.darkText,
-              fontSize: windowWidth / 20,
+              fontSize: windowWidth / 25,
             }}
           >
             {route.params.serviceName}
@@ -184,12 +194,16 @@ export function Orderdetail() {
           <Entypo name="chevron-right" color={Theme.darkText} size={34} />
         </View>
       </View>
-      <View>
+      <View
+        style={{
+          marginTop: windowHeight / 40,
+        }}
+      >
         <Text
           style={{
-            fontWeight: "bold",
+            fontFamily: Theme.fonts.secondary,
             color: Theme.darkText,
-            fontSize: windowWidth / 20,
+            fontSize: windowWidth / 30,
             textAlign: "left",
           }}
         >
@@ -207,7 +221,10 @@ export function Orderdetail() {
               flexGrow: 1,
             }}
           >
-            <TallyCard imageURI="https://dictionary.cambridge.org/fr/images/thumb/shirt_noun_002_33400.jpg?version=5.0.225" />
+            <TallyCard
+              name="shirt"
+              imageURI="https://dictionary.cambridge.org/fr/images/thumb/shirt_noun_002_33400.jpg?version=5.0.225"
+            />
             <TallyCard imageURI="https://dictionary.cambridge.org/fr/images/thumb/shirt_noun_002_33400.jpg?version=5.0.225" />
             <TallyCard imageURI="https://images.houseoffraser.co.uk/images/products/yl011500_4pl.jpg" />
             <TallyCard imageURI="https://www.collinsdictionary.com/images/full/tshirt_204029461_1000.jpg" />
@@ -285,7 +302,7 @@ export function Orderdetail() {
 }
 
 function TallyCard(props) {
-  const [amount, setAmount] = useState(1);
+  const [amount, setAmount] = useState(0);
   return (
     <View
       style={{

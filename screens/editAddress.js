@@ -31,7 +31,7 @@ import { Entypo, MaterialIcons } from "@expo/vector-icons";
 import MapView, { Circle, Marker, Callout } from "react-native-maps";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 const Stack = createStackNavigator();
-// "AIzaSyBrCRMGJ1e-qxRY7bz5pSSzucfAWMZamws",
+
 const GooglePlacesInput = () => {
   const [region, setRegion] = useState({
     latitude: 37.78825,
@@ -57,7 +57,7 @@ const GooglePlacesInput = () => {
         });
       }}
       query={{
-        key: "AIzaSyCUQoLbBsZz1WWOIQKro8Kx8rzZuZyRPyo",
+        key: "",
         language: "en",
         components: "country:us",
         types: "establishment",
