@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     borderRadius: 7.5,
     height: 15,
     width: 15,
-    borderWidth: 0.5,
+    borderWidth: 1,
   },
   defaultInput: {
     height: windowHeight / 17,
@@ -39,18 +39,18 @@ export const styles = StyleSheet.create({
   },
   lgText: {
     fontFamily: Theme.fonts.primaryFont,
-    color: Theme.secondary,
+
     fontSize: Theme.sizes.lgText,
   },
   mdText: {
     fontFamily: Theme.fonts.primaryFont,
-    color: Theme.secondary,
+
     fontSize: Theme.sizes.mdText + 3,
   },
   smText: {
-    fontFamily: Theme.fonts.primaryFont,
-    color: Theme.darkText,
-    fontSize: Theme.sizes.mdText + 3,
+    fontFamily: Theme.fonts.Nunito_700Bold,
+    color: Theme.primary,
+    fontSize: Theme.sizes.mdText + 2,
   },
   flexRow: {
     flexDirection: "row",

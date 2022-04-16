@@ -67,9 +67,17 @@ export default function LoginScreen() {
               flexDirection: "row",
             }}
           >
-            <FButton title="LOGIN" bg bgColor={Theme.tertiary} />
+            <FButton
+              title="LOGIN"
+              bg
+              bgColor={Theme.tertiary}
+              family={Theme.fonts.Nunito_600SemiBold}
+              fontSize={windowWidth / 24}
+            />
             <FButton
               title="SIGN UP"
+              family={Theme.fonts.Nunito_600SemiBold}
+              fontSize={windowWidth / 24}
               onPress={() => {
                 navigation.navigate("signup");
               }}
@@ -91,13 +99,27 @@ export default function LoginScreen() {
               marginTop: 36,
             }}
           >
-            <IconInput placeholder="Username" />
-            <IconInput placeholder="Enter your Password" />
+            <IconInput
+              name="user"
+              family="fontawesome"
+              iconSize={windowWidth / 15}
+              placeholder="Enter your username"
+              fontFamily={Theme.fonts.nunito}
+            />
+            <IconInput
+              name="lock"
+              family="materialicons"
+              iconSize={windowWidth / 15}
+              placeholder="Enter your Password"
+              fontFamily={Theme.fonts.nunito}
+            />
             <TouchableOpacity style={{}}>
               <Text
                 style={{
                   color: Theme.tertiary,
                   alignSelf: "flex-end",
+                  fontFamily: Theme.fonts.nunito,
+                  fontSize: 12,
                 }}
               >
                 Forgot your Password?
@@ -117,13 +139,17 @@ export default function LoginScreen() {
           <Checkbox
             value={remember}
             onValueChange={setRemember}
-            style={styles.checkbox}
-            color={remember ? "chartreuse" : undefined}
+            style={{
+              ...styles.checkbox,
+            }}
+            color={remember ? Theme.icons.success : undefined}
           />
           <Text
             style={{
               color: Theme.lightDark,
-              fontSize: 19,
+
+              fontFamily: Theme.fonts.nunito,
+              fontSize: 12,
               marginLeft: 13,
             }}
           >
@@ -141,7 +167,9 @@ export default function LoginScreen() {
             navigation.navigate("Home");
           }}
           title="LOGIN"
+          fontSize={17}
           bg
+          family={Theme.fonts.Nunito_600SemiBold}
           bgColor={Theme.tertiary}
         />
       </View>
@@ -152,16 +180,30 @@ export default function LoginScreen() {
           width: windowWidth,
           justifyContent: "center",
           position: "relative",
+
           alignSelf: "baseline",
         }}
       >
-        <Text>Don't have an account?</Text>
+        <Text
+          style={{
+            color: Theme.darkText,
+            fontSize: windowWidth / 26,
+
+            fontFamily: Theme.fonts.nunito,
+          }}
+        >
+          Don't have an account?
+        </Text>
+
         <TouchableOpacity>
           <Text
             style={{
               color: Theme.tertiary,
               marginLeft: 2,
               marginBottom: 30,
+
+              fontSize: windowWidth / 26,
+              fontFamily: Theme.fonts.nunito,
             }}
           >
             Sign up

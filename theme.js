@@ -25,11 +25,18 @@ export const Theme = {
     tertiary: "#222fbd",
     dark: "#1b1d38",
     light: "#edefff",
+    bellIconBG: "white",
+    gradient: ["cyan", "#0f0a69"],
+    success: "#119905",
   },
+  alert: "red",
   transparent: "transparent",
   fonts: {
     primaryFont: "FredokaOne_400Regular",
     secondary: "Poppins_400Regular",
+    nunito: "Nunito_400Regular",
+    Nunito_600SemiBold: "Nunito_600SemiBold",
+    Nunito_700Bold: "Nunito_700Bold",
   },
 
   primaryBG: "white",
@@ -44,5 +51,11 @@ export const Theme = {
     xsmText: windowWidth / 39,
     lgIcon: windowWidth / 7,
     mdRadius: windowWidth / 23,
+  },
+  colors: {
+    activeColor: "#4287f5",
+    inactiveColor: "white",
+    activeBorderColor: "gray",
+    inactiveBorderColor: "#4287f5",
   },
 };

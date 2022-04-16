@@ -1,4 +1,17 @@
 import {
+  Entypo,
+  Feather,
+  FontAwesome,
+  FontAwesome5,
+  Fontisto,
+  Ionicons,
+  MaterialCommunityIcons,
+  MaterialIcons,
+} from "@expo/vector-icons";
+import MaskedView from "@react-native-community/masked-view";
+
+import { LinearGradient } from "expo-linear-gradient";
+import {
   Image,
   Text,
   TextInput,
@@ -6,6 +19,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { POD } from "./helper_functions";
 import { windowHeight, windowWidth } from "./styles";
 import { styles } from "./styles";
 import { Theme } from "./theme";
@@ -27,8 +41,8 @@ export const FButton = (props) => {
       >
         <Text
           style={{
-            //   fontFamily: props.family ? props.family : "",
-            fontWeight: "bold",
+            fontFamily: props.family ? props.family : "",
+
             color: props.color ? props.color : Theme.primary,
             fontSize: props.fontSize ? props.fontSize : windowHeight / 40,
           }}
@@ -57,9 +71,9 @@ export const BButton = (props) => {
         <Text
           style={{
             fontFamily: props.family ? props.family : "",
-            fontWeight: "bold",
+
             color: Theme.primary,
-            fontSize: windowHeight / 30,
+            fontSize: props.fontSize ? props.fontSize : windowWidth / 30,
           }}
         >
           {props.title}
@@ -72,13 +86,13 @@ export const IconInput = (props) => {
   return (
     <View
       style={{
-        height: windowHeight / 17,
-        width: windowWidth / 1.3,
+        height: POD(props.h, windowHeight / 17),
+        width: POD(props.w, windowWidth / 1.3),
         elevation: 10,
         flexDirection: "row",
-        justifyContent: "center",
         alignContent: "center",
         alignItems: "center",
+        justifyContent: "center",
         shadowColor: "#000",
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.8,
@@ -88,21 +102,43 @@ export const IconInput = (props) => {
         borderRadius: 20,
         marginVertical: 12,
         backgroundColor: Theme.inputBackground,
+        fontFamily: props.fontFamily,
       }}
     >
-      <Image
-        source={{
-          uri: "https://raw.githubusercontent.com/AboutReact/sampleresource/master/input_phone.png",
-        }}
-        style={styles.imageStyle}
-      />
-      <TextInput
+      <View
         style={{
-          color: Theme.darkText,
+          width: POD(props.w, windowWidth / 1.3 - 17),
+          height: POD(props.h, windowHeight / 17 - 1),
+          flexDirection: "row",
+          alignContent: "center",
+          alignItems: "center",
         }}
-        placeholder={props.placeholder}
-        placeholderTextColor={Theme.placeholderColor}
-      />
+      >
+        <MaskedGradient
+          gradientColors={Theme.icons.gradient}
+          height={24}
+          width={30}
+          maskElement={
+            <IconSelector
+              name={props.name}
+              family={props.family}
+              size={props.iconSize}
+            />
+          }
+        />
+
+        <TextInput
+          style={{
+            color: Theme.darkText,
+            fontFamily: props.fontFamily,
+            fontSize: POD(props.fontSize, 12),
+            width: POD(props.w, windowWidth / 1.3 - 2),
+            height: POD(props.h, windowHeight / 17 - 1),
+          }}
+          placeholder={props.placeholder}
+          placeholderTextColor={Theme.placeholderColor}
+        />
+      </View>
     </View>
   );
 };
@@ -188,8 +224,8 @@ export const Cardy = (props) => {
             <View>
               <Text
                 style={{
-                  fontSize: 18,
-
+                  fontSize: 16,
+                  fontFamily: Theme.fonts.Nunito_600SemiBold,
                   color: Theme.mdDark,
                 }}
               >
@@ -198,28 +234,29 @@ export const Cardy = (props) => {
               <Text
                 style={{
                   fontSize: 13,
-                  fontFamily: Theme.fonts.primaryFont,
+                  fontFamily: Theme.fonts.Nunito_600SemiBold,
                   color: Theme.lightDark,
+                  marginTop: windowHeight / 100,
                 }}
               >
-                {props.description}
+                {props.description} hr service
               </Text>
             </View>
           </View>
           <View>
             <Text
               style={{
-                fontSize: 18,
-                fontFamily: "",
+                fontSize: 15,
+                fontFamily: Theme.fonts.Nunito_600SemiBold,
                 color: Theme.secondary,
               }}
             >
-              $10
+              ${props.cost}
             </Text>
             <Text
               style={{
-                fontSize: 18,
-                fontWeight: "bold",
+                fontSize: 13,
+                fontFamily: Theme.fonts.Nunito_600SemiBold,
                 color: Theme.lightDark,
               }}
             >
@@ -236,9 +273,9 @@ export function LabelledInput(props) {
     <View style={props.style}>
       <Text
         style={{
-          fontWeight: "bold",
+          fontFamily: Theme.fonts.Nunito_600SemiBold,
           color: Theme.mdDark,
-          fontSize: windowHeight / 42,
+          fontSize: windowHeight / 48,
         }}
       >
         {props.label}
@@ -250,6 +287,7 @@ export function LabelledInput(props) {
           height: windowHeight / props.hRatio,
           width: windowWidth / props.wRatio,
           backgroundColor: Theme.primary,
+          fontFamily: Theme.fonts.nunito,
 
           borderRadius: windowWidth / props.radiusRatio,
         }}
@@ -286,7 +324,21 @@ function Texty() {
     </View>
   );
 }
-
+export const MaskedGradient = (props) => {
+  return (
+    <MaskedView
+      style={{ height: POD(props.height, 24), width: POD(props.width, 30) }}
+      maskElement={props.maskElement}
+    >
+      <LinearGradient
+        colors={POD(props.gradientColors, ["chocolate", "cyan"])}
+        start={{ x: 1, y: 1 }}
+        end={{ x: 0, y: 0.33 }}
+        style={{ flex: 1 }}
+      />
+    </MaskedView>
+  );
+};
 export const InlineItemValueView = (props) => {
   return (
     <View
@@ -298,9 +350,9 @@ export const InlineItemValueView = (props) => {
       <View style={{}}>
         <Text
           style={{
-            fontWeight: "bold",
+            fontFamily: Theme.fonts.Nunito_600SemiBold,
             color: Theme.mdDark,
-            fontSize: Theme.sizes.mdText + 3,
+            fontSize: Theme.sizes.mdText,
           }}
         >
           {props.item}
@@ -310,9 +362,9 @@ export const InlineItemValueView = (props) => {
       <View>
         <Text
           style={{
-            fontWeight: "bold",
+            fontFamily: Theme.fonts.Nunito_600SemiBold,
             color: Theme.secondary,
-            fontSize: Theme.sizes.mdText + 3,
+            fontSize: Theme.sizes.mdText,
           }}
         >
           {props.value}
@@ -322,6 +374,39 @@ export const InlineItemValueView = (props) => {
   );
 };
 
+export const HorizontalValueView = (props) => {
+  return (
+    <View style={{ flexDirection: "row" }}>
+      <View
+        style={{
+          width: props.w ? props.w : "100%",
+        }}
+      >
+        <Text
+          style={{
+            fontFamily: Theme.fonts.Nunito_600SemiBold,
+            color: props.ItemTextColor,
+            fontSize: Theme.sizes.mdText,
+          }}
+        >
+          {props.item}
+        </Text>
+      </View>
+
+      <View>
+        <Text
+          style={{
+            fontFamily: Theme.fonts.Nunito_600SemiBold,
+            color: Theme.secondary,
+            fontSize: Theme.sizes.mdText,
+          }}
+        >
+          {props.money && props.sign} {props.value}
+        </Text>
+      </View>
+    </View>
+  );
+};
 export const CenteredButton = (props) => {
   return (
     <TouchableOpacity onPress={props.onPress}>
@@ -353,4 +438,83 @@ export const CenteredButton = (props) => {
       </View>
     </TouchableOpacity>
   );
+};
+
+export const IconSelector = (props) => {
+  if (/fontawesome5/i.test(props.family)) {
+    return (
+      <FontAwesome5
+        name={props.name}
+        size={POD(props.size, 24)}
+        color={props.color}
+      />
+    );
+  }
+  if (/fontawesome/i.test(props.family)) {
+    return (
+      <FontAwesome
+        name={props.name}
+        size={POD(props.size, 24)}
+        color={props.color}
+      />
+    );
+  }
+
+  if (/ionicons/i.test(props.family)) {
+    return (
+      <Ionicons
+        name={props.name}
+        size={POD(props.size, 24)}
+        color={props.color}
+      />
+    );
+  }
+
+  if (/fontisto/i.test(props.family)) {
+    return (
+      <Fontisto
+        name={props.name}
+        size={POD(props.size, 24)}
+        color={props.color}
+      />
+    );
+  }
+  if (/entypo/i.test(props.family)) {
+    return (
+      <Entypo
+        name={props.name}
+        size={POD(props.size, 24)}
+        color={props.color}
+      />
+    );
+  }
+
+  if (/MaterialIcons/i) {
+    return (
+      <MaterialIcons
+        name={props.name}
+        size={POD(props.size, 24)}
+        color={props.color}
+      />
+    );
+  }
+  if (/MaterialCommunityIcons/i.test(props.family)) {
+    return (
+      <MaterialCommunityIcons
+        name={props.name}
+        size={POD(props.size, 24)}
+        color={props.color}
+      />
+    );
+  }
+  if (/Feather/i.test(props.family)) {
+    return (
+      <Feather
+        name={props.name}
+        size={POD(props.size, 24)}
+        color={props.color}
+      />
+    );
+  }
+  return <></>;
 };

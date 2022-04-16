@@ -113,7 +113,7 @@ const OrderCardy = () => {
   );
 };
 export function Orderdetail() {
-  const [totalItems, setTotalItems] = useState(1);
+  const [totalItems, setTotalItems] = useState([]);
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const route = useRoute();
@@ -130,9 +130,9 @@ export function Orderdetail() {
     >
       <Text
         style={{
-          fontFamily: Theme.fonts.secondary,
+          fontFamily: Theme.fonts.nunito,
           color: Theme.darkText,
-          fontSize: windowWidth / 30,
+          fontSize: windowWidth / 27,
           textAlign: "left",
         }}
       >
@@ -184,7 +184,7 @@ export function Orderdetail() {
         >
           <Text
             style={{
-              fontFamily: Theme.fonts.secondary,
+              fontFamily: Theme.fonts.nunito,
               color: Theme.darkText,
               fontSize: windowWidth / 25,
             }}
@@ -201,7 +201,7 @@ export function Orderdetail() {
       >
         <Text
           style={{
-            fontFamily: Theme.fonts.secondary,
+            fontFamily: Theme.fonts.Nunito_600SemiBold,
             color: Theme.darkText,
             fontSize: windowWidth / 30,
             textAlign: "left",
@@ -248,9 +248,9 @@ export function Orderdetail() {
         <View>
           <Text
             style={{
-              fontWeight: "bold",
+              fontFamily: Theme.fonts.Nunito_600SemiBold,
               color: Theme.darkText,
-              fontSize: windowWidth / 20,
+              fontSize: windowWidth / 28,
               textAlign: "left",
             }}
           >
@@ -258,8 +258,8 @@ export function Orderdetail() {
           </Text>
           <Text
             style={{
-              fontWeight: "bold",
-              color: Theme.tertiary,
+              fontFamily: Theme.fonts.Nunito_600SemiBold,
+              color: Theme.secondary,
               fontSize: windowWidth / 20,
               textAlign: "left",
             }}
@@ -274,12 +274,11 @@ export function Orderdetail() {
         >
           <View
             style={{
-              height: windowHeight / 13,
-              borderRadius: windowWidth / 30,
+              height: windowHeight / 14,
+              borderRadius: windowWidth / 35,
               backgroundColor: Theme.secondary,
               width: windowWidth / 2.5,
               justifyContent: "center",
-
               alignContent: "center",
               alignItems: "center",
             }}
@@ -332,8 +331,8 @@ function TallyCard(props) {
             uri: props.imageURI,
           }}
           style={{
-            height: windowHeight / 12,
-            width: windowHeight / 12,
+            height: windowHeight / 15,
+            width: windowHeight / 15,
           }}
         />
       </View>
@@ -346,7 +345,7 @@ function TallyCard(props) {
       >
         <Text
           style={{
-            fontFamily: Theme.fonts.secondary,
+            fontFamily: Theme.fonts.nunito,
             color: Theme.darkText,
             fontSize: windowWidth / 25,
           }}

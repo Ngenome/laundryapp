@@ -18,6 +18,7 @@ import { styles, windowHeight, windowWidth } from "../styles";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
+import { FontAwesome } from "@expo/vector-icons";
 
 const Stack = createStackNavigator();
 
@@ -42,8 +43,8 @@ export default function SignUpScreen() {
           <Text
             style={{
               color: Theme.primary,
-              fontSize: 17,
-              fontWeight: "bold",
+              fontSize: 14,
+              fontFamily: Theme.fonts.nunito,
               marginBottom: 15,
             }}
           >
@@ -52,8 +53,8 @@ export default function SignUpScreen() {
           <Text
             style={{
               color: Theme.primary,
-              fontSize: 45,
-              fontWeight: "bold",
+              fontSize: 37,
+              fontFamily: Theme.fonts.Nunito_600SemiBold,
               marginBottom: 45,
             }}
           >
@@ -64,8 +65,21 @@ export default function SignUpScreen() {
               flexDirection: "row",
             }}
           >
-            <FButton title="LOGIN" />
-            <FButton title="SIGN UP" bg bgColor={Theme.tertiary} />
+            <FButton
+              title="LOGIN"
+              family={Theme.fonts.Nunito_600SemiBold}
+              fontSize={windowWidth / 24}
+              onPress={() => {
+                navigation.navigate("Login");
+              }}
+            />
+            <FButton
+              family={Theme.fonts.Nunito_600SemiBold}
+              title="SIGN UP"
+              fontSize={windowWidth / 24}
+              bg
+              bgColor={Theme.tertiary}
+            />
           </View>
         </View>
       </LinearGradient>
@@ -81,17 +95,51 @@ export default function SignUpScreen() {
             marginTop: 36,
           }}
         >
-          <IconInput placeholder="Full name" />
-          <IconInput placeholder="Mobile/phone number" />
-          <IconInput placeholder="Type your Password" />
-          <IconInput placeholder="Confirm your Password" />
-          <IconInput placeholder="Select Location" />
+          <IconInput
+            fontFamily={Theme.fonts.nunito}
+            name="user"
+            family="fontawesome"
+            iconSize={windowWidth / 15}
+            placeholder="Full name"
+          />
+          <IconInput
+            fontFamily={Theme.fonts.nunito}
+            name="phone"
+            family="feather"
+            iconSize={windowWidth / 15}
+            placeholder="Mobile/phone number"
+          />
+          <IconInput
+            fontFamily={Theme.fonts.nunito}
+            name="lock"
+            iconColor="red"
+            family="materialicons"
+            iconSize={windowWidth / 15}
+            placeholder="Type your Password"
+          />
+          <IconInput
+            fontFamily={Theme.fonts.nunito}
+            name="lock"
+            iconColor="red"
+            family="materialicons"
+            iconSize={windowWidth / 15}
+            placeholder="Confirm your Password"
+          />
+          <IconInput
+            fontFamily={Theme.fonts.nunito}
+            name="location-pin"
+            iconColor="red"
+            family="Entypo"
+            iconSize={windowWidth / 15}
+            placeholder="Select Location"
+          />
         </View>
 
         <BButton
           onPress={() => {
-            navigation.navigate("laundry");
+            navigation.navigate("Home");
           }}
+          family={Theme.fonts.Nunito_600SemiBold}
           title="SIGN UP"
           bg
           bgColor={Theme.tertiary}
@@ -106,7 +154,15 @@ export default function SignUpScreen() {
           alignSelf: "baseline",
         }}
       >
-        <Text>Have an account?</Text>
+        <Text
+          style={{
+            color: Theme.darkText,
+            fontSize: 15,
+            fontFamily: Theme.fonts.nunito,
+          }}
+        >
+          Have an account?
+        </Text>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("Login");
@@ -114,6 +170,8 @@ export default function SignUpScreen() {
         >
           <Text
             style={{
+              fontSize: 15,
+              fontFamily: Theme.fonts.nunito,
               color: Theme.tertiary,
               marginLeft: 2,
               marginBottom: 30,

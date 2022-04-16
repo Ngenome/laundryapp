@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "ribrad_launry",
+    "name": "Ribrad laundry",
     "slug": "ribrad_launry",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -10,11 +10,11 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-     "plugins": [
+    "plugins": [
       [
         "expo-image-picker",
         {
-          "photosPermission": "The app accesses your photos to let you share them with your friends."
+          "photosPermission": "Needs access to photos to allow you take photos"
         }
       ]
     ],
@@ -25,14 +25,26 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "The app accesses your photos to let you share them with your friends.",
+        "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to access your camera",
+        "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to access your microphone"
+      }
     },
     "android": {
-      "softwareKeyboardLayoutMode":"pan",
+      "softwareKeyboardLayoutMode": "pan",
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.interstellarcg.ribrad_launry"
     },
     "web": {
       "favicon": "./assets/icon.png"

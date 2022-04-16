@@ -118,9 +118,9 @@ const OrderCardy = () => {
     </View>
   );
 };
-export function Checkout() {
+export function PaymentDetail() {
   const dispatch = useDispatch();
-  const [paySystem, setPaySystem] = useState("card");
+
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
   const auth = useSelector((state) => state.auth);
@@ -143,7 +143,7 @@ export function Checkout() {
           },
         },
       ]);
-      return setModalVisible(false);
+      return true;
     };
 
     const backHandler = BackHandler.addEventListener(
@@ -240,8 +240,7 @@ export function Checkout() {
                 paySystem == "card" ? Theme.secondary : Theme.lightDarkBG
               }
               onPress={() => {
-                setModalVisible(false);
-                navigation.navigate("customer_payments");
+                setPaySystem("card");
               }}
             />
             <View
@@ -416,7 +415,7 @@ function CreditCard(props) {
       >
         <Text
           style={{
-            fontFamily: Theme.fonts.Nunito_600SemiBold,
+            fontWeight: "bold",
             color: Theme.primary,
             fontSize: windowWidth / 20,
           }}
@@ -438,7 +437,7 @@ function CreditCard(props) {
   );
 }
 function BottomTotal(props) {
-  var popupState = props.popupState;
+  var popupState = props.popupState();
   const navigation = useNavigation();
   return (
     <View
@@ -454,7 +453,7 @@ function BottomTotal(props) {
       <View>
         <Text
           style={{
-            fontFamily: Theme.fonts.nunito,
+            fontWeight: "bold",
             color: Theme.secondary,
             fontSize: windowWidth / 20,
             textAlign: "left",
@@ -492,7 +491,7 @@ function BottomTotal(props) {
         >
           <Text
             style={{
-              fontFamily: Theme.fonts.Nunito_600SemiBold,
+              fontWeight: "bold",
               color: Theme.primary,
               fontSize: windowWidth / 23,
               textAlign: "left",
@@ -587,7 +586,7 @@ function TallyCard(props) {
       >
         <Text
           style={{
-            fontFamily: Theme.fonts.Nunito_600SemiBold,
+            fontWeight: "bold",
             color: Theme.darkText,
             fontSize: windowWidth / 25,
           }}

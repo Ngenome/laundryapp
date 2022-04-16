@@ -29,6 +29,7 @@ import WashingMachine from "../assets/washing-machine.svg";
 import { useDispatch } from "react-redux";
 import { changeScreen } from "../redux/actions";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
+import { Rule } from "./laundry/customerpayments";
 const Stack = createStackNavigator();
 
 export function OrderSummary() {
@@ -122,6 +123,7 @@ export function OrderSummary() {
                 { clothe: "Shirt", amount: 3, cost: 10 },
               ]}
             />
+            <Rule bg={Theme.lightDark} mv={windowHeight / 50} />
             <ServiceSummaryCard
               sign="$"
               service="Dry Clean"
@@ -132,6 +134,7 @@ export function OrderSummary() {
                 { clothe: "Shirt", amount: 3, cost: 10 },
               ]}
             />
+            <Rule bg={Theme.lightDark} mv={windowHeight / 50} />
             <ServiceSummaryCard
               sign="$"
               service="Dry Clean"
@@ -142,6 +145,7 @@ export function OrderSummary() {
                 { clothe: "Shirt", amount: 3, cost: 10 },
               ]}
             />
+            <Rule bg={Theme.lightDark} mv={windowHeight / 50} />
             <ServiceSummaryCard
               sign="$"
               service="Dry Clean"

@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  TouchableWithoutFeedback,
 } from "react-native";
 import store from "./redux/store";
 import Checkbox from "expo-checkbox";
@@ -31,6 +32,7 @@ import {
   useFonts,
   Nunito_400Regular,
   Nunito_600SemiBold,
+  Nunito_700Bold,
 } from "@expo-google-fonts/nunito";
 Poppins_400Regular;
 import { FredokaOne_400Regular } from "@expo-google-fonts/fredoka-one";
@@ -43,6 +45,16 @@ import { Poppins_400Regular } from "@expo-google-fonts/poppins";
 import { EditAddress } from "./screens/editAddress";
 import HistoryScreen, { OrderHistory } from "./screens/orderhistory";
 import EditProfileScreen from "./screens/editprofile";
+import LandingScreen from "./screens/landing";
+import ShopNavigator, { ShopHomeScreen } from "./screens/shop/home";
+import { ShopLandingScreen } from "./screens/shop/landing";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
+import { ShopDiscoverScreen } from "./screens/shop/discover";
+import { ShopProductScreen } from "./screens/shop/productdetail";
+import { ShopCart } from "./screens/shop/cart";
+import CustomerPayments from "./screens/laundry/customerpayments";
+import CourierDetails from "./screens/laundry/courier_details";
+import LaundryOnboarding from "./screens/laundry/onboarding";
 const Stack = createStackNavigator();
 
 const Drawer = createDrawerNavigator();
@@ -63,7 +75,7 @@ function LogoTitle(props) {
           fontWeight: "bold",
         }}
       >
-        {props.title}Home
+        {props.title} Home
       </Text>
     </View>
   );
@@ -73,6 +85,7 @@ export default function App() {
   let [fontsLoaded] = useFonts({
     Nunito_400Regular,
     Nunito_600SemiBold,
+    Nunito_700Bold,
     Rubik_400Regular,
     Rubik_300Light,
     FredokaOne_400Regular,
@@ -88,8 +101,21 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
+            name="landing"
+            component={LandingScreen}
+            options={{ headerShown: false }}
+            // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+          />
+          <Stack.Screen
             name="Login"
             component={LoginScreen}
+            TouchableWithoutFeedback
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="laundry_onboarding"
+            component={LaundryOnboarding}
+            TouchableWithoutFeedback
             options={{ headerShown: false }}
           />
 
@@ -135,6 +161,144 @@ export default function App() {
             options={{ headerShown: true }}
             // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
           />
+          <Stack.Screen
+            name="shop"
+            component={ShopLandingScreen}
+            options={{ headerShown: false }}
+            // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+          />
+          <Stack.Screen
+            name="shop_discover"
+            component={ShopDiscoverScreen}
+            options={{ headerTitle: HeaderTitle }}
+          />
+          <Stack.Screen
+            name="shop_home"
+            component={ShopNavigator}
+            options={{ headerTitle: HeaderTitle }}
+          />
+          <Stack.Screen
+            name="shop_product_detail"
+            component={ShopProductScreen}
+            options={{
+              headerTitle: (props) => {
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <View>
+                    <Text
+                      style={{
+                        fontFamily: Theme.fonts.primaryFont,
+                        color: Theme.darkText,
+                      }}
+                    >
+                      {props.title}
+                    </Text>
+                    <Text
+                      style={{
+                        fontFamily: Theme.fonts.Nunito_600SemiBold,
+                        color: Theme.darkText,
+                      }}
+                    >
+                      Josh
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      width: windowWidth / 2.3,
+                    }}
+                  ></View>
+                  <TouchableWithoutFeedback
+                    onPress={() => {
+                      navigation.navigate("notifications");
+                    }}
+                  >
+                    <View
+                      style={{
+                        position: "relative",
+                      }}
+                    >
+                      <Ionicons
+                        name="ios-notifications-sharp"
+                        size={24}
+                        color={Theme.icons.dark}
+                      />
+                      <Text
+                        style={{
+                          fontFamily: Theme.fonts.Nunito_600SemiBold,
+                          color: Theme.alert,
+                          fontSize: 10,
+                          padding: 3,
+                          backgroundColor: Theme.icons.bellIconBG,
+                          borderRadius: 15,
+                          textAlign: "center",
+                          position: "absolute",
+                          right: 0,
+                        }}
+                      >
+                        {5}
+                      </Text>
+                    </View>
+                  </TouchableWithoutFeedback>
+                </View>;
+              },
+            }}
+          />
+          <Stack.Screen
+            name="shop_cart"
+            component={ShopCart}
+            options={{
+              headerShown: true,
+              headerTitle: (props) => {
+                return (
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <View>
+                      <Text
+                        style={{
+                          fontFamily: Theme.fonts.Nunito_600SemiBold,
+                          color: Theme.darkText,
+                        }}
+                      >
+                        Cart
+                      </Text>
+                    </View>
+                    <View
+                      style={{
+                        width: windowWidth / 1.8,
+                      }}
+                    ></View>
+                    <AntDesign
+                      name="delete"
+                      color={Theme.icons.secondary}
+                      size={windowWidth / 16}
+                    />
+                  </View>
+                );
+              },
+            }}
+          />
+          <Stack.Screen
+            name="customer_payments"
+            component={CustomerPayments}
+            options={{ headerShown: false }}
+            // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+          />
+          <Stack.Screen
+            name="courier_details"
+            component={CourierDetails}
+            options={{ headerShown: false }}
+            // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
@@ -173,3 +337,69 @@ export function Home() {
     </LinearGradient>
   );
 }
+const HeaderTitle = (props) => {
+  return (
+    <View
+      style={{
+        flexDirection: "row",
+        justifyContent: "space-between",
+      }}
+    >
+      <View>
+        <Text
+          style={{
+            fontFamily: Theme.fonts.primaryFont,
+            color: Theme.darkText,
+          }}
+        >
+          {props.title}
+        </Text>
+        <Text
+          style={{
+            fontFamily: Theme.fonts.Nunito_600SemiBold,
+            color: Theme.darkText,
+          }}
+        >
+          Josh
+        </Text>
+      </View>
+      <View
+        style={{
+          width: windowWidth / 2.3,
+        }}
+      ></View>
+      <TouchableWithoutFeedback
+        onPress={() => {
+          navigation.navigate("notifications");
+        }}
+      >
+        <View
+          style={{
+            position: "relative",
+          }}
+        >
+          <Ionicons
+            name="ios-notifications-sharp"
+            size={24}
+            color={Theme.icons.dark}
+          />
+          <Text
+            style={{
+              fontFamily: Theme.fonts.Nunito_600SemiBold,
+              color: Theme.alert,
+              fontSize: 10,
+              padding: 3,
+              backgroundColor: Theme.icons.bellIconBG,
+              borderRadius: 15,
+              textAlign: "center",
+              position: "absolute",
+              right: 0,
+            }}
+          >
+            {5}
+          </Text>
+        </View>
+      </TouchableWithoutFeedback>
+    </View>
+  );
+};

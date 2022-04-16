@@ -28,6 +28,7 @@ import WashingMachine from "../assets/washing-machine.svg";
 import { useDispatch } from "react-redux";
 import { changeScreen } from "../redux/actions";
 import { Nunito_400Regular, useFonts } from "@expo-google-fonts/nunito";
+import Carousel from "./carousel";
 const Stack = createStackNavigator();
 const services = [
   {
@@ -72,62 +73,14 @@ export function Laundry() {
         alignItems: "center",
       }}
     >
-      <LinearGradient
-        colors={Theme.gradientColors}
+      <View
         style={{
-          marginTop: 27,
-          borderRadius: 10,
+          height: windowHeight / 5,
         }}
       >
-        <View
-          style={{
-            height: windowHeight / 5.6,
-            width: windowWidth / 1.2,
-            borderRadius: 13,
-            flexDirection: "row",
-            justifyContent: "space-around",
-            alignContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Image
-            source={require("../assets/laundry/washing-machine-main.png")}
-            style={{
-              height: windowHeight / 6,
-              width: windowHeight / 6,
-            }}
-          />
-          <View>
-            <Text
-              style={{
-                fontSize: 20,
-                fontFamily: "VarelaRound_400Regular",
-                color: Theme.primary,
-              }}
-            >
-              15% off
-            </Text>
-            <Text
-              style={{
-                fontSize: 15,
-                fontFamily: "Rubik_300Light",
-                color: Theme.primary,
-              }}
-            >
-              All services
-            </Text>
-            <FButton
-              title="Grab IT"
-              mH={1}
-              bg
-              bgColor={Theme.primary}
-              color="black"
-              radius={7}
-              fontSize={16}
-            />
-          </View>
-        </View>
-      </LinearGradient>
+        <Carousel />
+      </View>
+
       <View
         style={{
           width: windowWidth / 1.23,
@@ -135,8 +88,8 @@ export function Laundry() {
       >
         <Text
           style={{
-            fontSize: 15,
-            fontFamily: Theme.fonts.primaryFont,
+            fontSize: 12,
+            fontFamily: Theme.fonts.nunito,
             color: Theme.darkText,
           }}
         >
@@ -149,18 +102,18 @@ export function Laundry() {
         >
           <Text
             style={{
-              fontSize: 20,
+              fontSize: 18,
 
               color: Theme.darkText,
-              fontFamily: Theme.fonts.primaryFont,
+              fontFamily: Theme.fonts.Nunito_600SemiBold,
             }}
           >
             What services do you
           </Text>
           <Text
             style={{
-              fontSize: 20,
-              fontFamily: Theme.fonts.primaryFont,
+              fontSize: 18,
+              fontFamily: Theme.fonts.Nunito_600SemiBold,
               color: Theme.darkText,
             }}
           >
@@ -194,6 +147,9 @@ export function Laundry() {
                 title={s.name}
                 source={{ uri: s.image }}
                 description={s.serviceDuration}
+                fontFamily={Theme.fonts.Nunito_600SemiBold}
+                cost={34 * ((i + 1) / 2)}
+                s
               />
             );
           })}
