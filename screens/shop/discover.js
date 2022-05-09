@@ -28,7 +28,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import WashingMachine from "../../assets/washing-machine.svg";
 import { useDispatch } from "react-redux";
 import { changeScreen } from "../../redux/actions";
-import { Entypo, MaterialIcons } from "@expo/vector-icons";
+import { Entypo, FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import MapView, { Circle, Marker, Callout } from "react-native-maps";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { SliderBox } from "react-native-image-slider-box";
@@ -391,12 +391,31 @@ export function ShopDiscoverScreen() {
           borderRadius: windowWidth / 50,
         }}
       >
-        <TextInput
-          placeholder="Search anything here"
-          onChangeText={(text) => {
-            setSearchText(text);
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
           }}
-        />
+        >
+          <TextInput
+            placeholder="Search anything here"
+            onChangeText={(text) => {
+              setSearchText(text);
+            }}
+          />
+          <TouchableOpacity
+            style={{
+              padding: windowWidth / 80,
+            }}
+            onPress={() => {}}
+          >
+            <FontAwesome
+              name="search"
+              color={Theme.icons.secondary}
+              size={windowHeight / 30}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
 
       <View>

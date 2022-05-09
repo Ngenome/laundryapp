@@ -491,9 +491,9 @@ function BottomTotal(props) {
         >
           <Text
             style={{
-              fontWeight: "bold",
               color: Theme.primary,
               fontSize: windowWidth / 23,
+              fontFamily: Theme.fonts.Nunito_600SemiBold,
               textAlign: "left",
             }}
           >

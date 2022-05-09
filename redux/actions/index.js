@@ -38,3 +38,7 @@ export const CHANGELAUNDRYITEM = (task) => ({
   type: "CHANGELAUNDRYITEM",
   payload: task,
 });
+export const SETNEXTSCREEN = (task) => ({
+  type: "SETNEXTSCREEN",
+  payload: task,
+});

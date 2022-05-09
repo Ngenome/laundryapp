@@ -23,7 +23,8 @@ import { POD } from "./helper_functions";
 import { windowHeight, windowWidth } from "./styles";
 import { styles } from "./styles";
 import { Theme } from "./theme";
-
+import React, { useRef } from "react";
+import PhoneInput from "react-native-phone-number-input";
 export const FButton = (props) => {
   return (
     <TouchableOpacity onPress={props.onPress}>
@@ -132,17 +133,112 @@ export const IconInput = (props) => {
             color: Theme.darkText,
             fontFamily: props.fontFamily,
             fontSize: POD(props.fontSize, 12),
-            width: POD(props.w, windowWidth / 1.3 - 2),
+            width: POD(props.w, windowWidth / 1.4 - 40),
             height: POD(props.h, windowHeight / 17 - 1),
           }}
           placeholder={props.placeholder}
           placeholderTextColor={Theme.placeholderColor}
+          {...props.TextInput}
+          onChangeText={props.change}
         />
+
+        {props.visibilityIcon && (
+          <TouchableOpacity
+            onPress={() => props.setVisibility(!props.visibility)}
+          >
+            <MaterialIcons
+              name={props.visibility ? "visibility-off" : "visibility"}
+              size={windowWidth / 20}
+              color={Theme.secondary}
+            />
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );
 };
 
+export function PhoneNumberInput(props) {
+  const phoneInputRef = props.phoneInputRef;
+  var borderRadii = windowWidth / 26;
+  return (
+    <View
+      style={{
+        height: POD(props.h, windowHeight / 17),
+        width: POD(props.w, windowWidth / 1.3),
+        elevation: 10,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.8,
+        shadowRadius: 40,
+        // borderWidth: 1,
+        borderColor: "gray",
+        borderRadius: 20,
+        marginVertical: 12,
+        backgroundColor: Theme.inputBackground,
+        fontFamily: props.fontFamily,
+      }}
+    >
+      <View
+        style={{
+          width: POD(props.w, windowWidth / 1.3 - 17),
+          height: POD(props.h, windowHeight / 17 - 1),
+          flexDirection: "row",
+          alignContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <MaskedGradient
+          gradientColors={Theme.icons.gradient}
+          height={24}
+          width={30}
+          maskElement={
+            <IconSelector
+              name={props.name}
+              family={props.family}
+              size={props.iconSize}
+            />
+          }
+        />
+
+        <PhoneInput
+          ref={phoneInputRef}
+          defaultValue={props.default}
+          defaultCode="US"
+          layout="second"
+          onChangeText={props.change}
+          onChangeFormattedText={props.changeFormatted}
+          onChangeCountry={props.onChangeCountry}
+          withShadow
+          autoFocus
+          containerStyle={{
+            width: POD(props.w, windowWidth / 1.55),
+            borderTopRightRadius: borderRadii,
+            borderBottomRightRadius: borderRadii,
+            height: POD(props.h, windowHeight / 17 - 1),
+          }}
+          textContainerStyle={{
+            width: windowWidth / 3,
+            borderTopRightRadius: borderRadii,
+            borderBottomRightRadius: borderRadii,
+          }}
+          textInputStyle={{
+            color: Theme.darkText,
+            fontFamily: props.fontFamily,
+            fontSize: POD(props.fontSize, 12),
+            width: POD(props.w, windowWidth / 2 - 40),
+            height: POD(props.h, windowHeight / 17 - 1),
+            margin: 0,
+            padding: 0,
+          }}
+        />
+      </View>
+    </View>
+  );
+}
 const Button101 = (props) => {
   return (
     <TouchableOpacity
@@ -427,7 +523,7 @@ export const CenteredButton = (props) => {
       >
         <Text
           style={{
-            fontFamily: props.font ? props.font : "",
+            fontFamily: props.font ? props.font : "Nunito_600SemiBold",
             color: Theme.primary,
             fontSize: props.fontSize ? props.fontSize : windowWidth / 30,
             textAlign: "left",
@@ -517,4 +613,72 @@ export const IconSelector = (props) => {
     );
   }
   return <></>;
+};
+export const SignInWithGoogle = (props) => {
+  return (
+    <View
+      style={{
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Text
+        style={{
+          color: Theme.lightDark,
+
+          fontFamily: Theme.fonts.nunito,
+          fontSize: 12,
+          marginLeft: 13,
+        }}
+      >
+        or Sign in with
+      </Text>
+      <View>
+        <TouchableOpacity>
+          <Image
+            source={require("./assets/google.png")}
+            style={{
+              width: windowWidth / 11,
+              height: windowHeight / 10,
+              resizeMode: "contain",
+            }}
+          />
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+
+export const Rule = (props) => {
+  return (
+    <View
+      style={{
+        marginVertical: props.mv,
+        backgroundColor: props.bg ? props.bg : "black",
+        height: props.h ? props.h : windowHeight / 370,
+        width: props.w ? props.w : windowWidth / 1.5,
+        borderRadius: windowWidth / 50,
+      }}
+    ></View>
+  );
+};
+
+export const SearchBar = (props) => {
+  return (
+    <View
+      style={{
+        height: windowHeight / 19,
+        backgroundColor: Theme.primaryBG,
+        width: windowWidth / 1.3,
+        borderRadius: windowWidth / 50,
+      }}
+    >
+      <TextInput
+        placeholder={props.placeholder}
+        onChangeText={(text) => {
+          props.setSearchText(text);
+        }}
+      />
+    </View>
+  );
 };

@@ -1,13 +1,20 @@
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { HorizontalValueView } from "../../components";
+import { useDispatch } from "react-redux";
+import { HorizontalValueView, Rule } from "../../components";
+import { changeScreen } from "../../redux/actions";
 import { windowHeight, windowWidth } from "../../styles";
 import { Theme } from "../../theme";
 import { CenteredButton } from "../summary";
 
 export default function CustomerPayments() {
+  const dispatch = useDispatch();
+
+  useFocusEffect(() => {
+    dispatch(changeScreen("Payment History"));
+  });
   const navigation = useNavigation();
   return (
     <SafeAreaView
@@ -163,32 +170,6 @@ export default function CustomerPayments() {
           </Text>
         </View>
       </View>
-      <CenteredButton
-        hRatio={16}
-        wRatio={1.3}
-        style={{
-          marginTop: windowHeight / 15,
-        }}
-        radiusRatio={20}
-        title="Courier Details"
-        bgColor={Theme.secondary}
-        onPress={() => {
-          navigation.navigate("courier_details");
-        }}
-      />
     </SafeAreaView>
   );
 }
-export const Rule = (props) => {
-  return (
-    <View
-      style={{
-        marginVertical: props.mv,
-        backgroundColor: props.bg ? props.bg : "black",
-        height: props.h ? props.h : windowHeight / 370,
-        width: props.w ? props.w : windowWidth / 1.5,
-        borderRadius: windowWidth / 50,
-      }}
-    ></View>
-  );
-};

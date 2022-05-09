@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import { windowHeight, windowWidth } from "../styles";
 import { Theme } from "../theme";
 import { Laundry } from "./laundry";
+import CustomerPayments from "./laundry/customerpayments";
 import OffersScreen from "./offers";
 import HistoryScreen from "./orderhistory";
 import ProfileScreen from "./profile";
@@ -39,13 +40,13 @@ function LogoTitle() {
         <FontAwesome5
           name="chevron-left"
           color={Theme.darkText}
-          size={windowHeight / 30}
+          size={windowHeight / 50}
         />
       </TouchableOpacity>
       <Text
         style={{
-          fontSize: windowHeight / 35,
-          fontFamily: Theme.fonts.secondary,
+          fontSize: windowHeight / 40,
+          fontFamily: Theme.fonts.Nunito_600SemiBold,
           color: Theme.darkText,
         }}
       >
@@ -84,8 +85,8 @@ export default function HomeScreen() {
         }}
       />
       <Tab.Screen
-        name="history"
-        component={HistoryScreen}
+        name="Payments"
+        component={CustomerPayments}
         options={{
           tabBarShowLabel: false,
           tabBarIcon: ({ color, size }) => (

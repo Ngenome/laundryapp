@@ -38,6 +38,9 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import { SliderBox } from "react-native-image-slider-box";
 import { ShopDiscoverScreen } from "./discover";
 import { ProductCard } from "./components";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import ShopHistoryScreen from "./order_history";
+import { ShopCart } from "./cart";
 const Tab = createBottomTabNavigator();
 export default function ShopNavigator() {
   return (
@@ -72,7 +75,7 @@ export default function ShopNavigator() {
       <Tab.Screen
         name="shop_history_page"
         ShopHomeScreen
-        component={ShopDiscoverScreen}
+        component={ShopHistoryScreen}
         options={{
           tabBarShowLabel: false,
           tabBarIcon: ({ color, size }) => (
@@ -82,7 +85,7 @@ export default function ShopNavigator() {
       />
       <Tab.Screen
         name="shop_cart_page"
-        component={ShopDiscoverScreen}
+        component={ShopCart}
         options={{
           tabBarShowLabel: false,
           tabBarIcon: ({ color, size }) => (
@@ -95,7 +98,7 @@ export default function ShopNavigator() {
 }
 
 export function ShopHomeScreen() {
-  const [filterValue, setFilterValue] = useState("All");
+  const [filterValue, setFilterValue] = useState("T-shirt");
   const dispatch = useDispatch();
   const [refreshing, setRefreshing] = useState(false);
   const navigation = useNavigation();
@@ -136,10 +139,28 @@ export function ShopHomeScreen() {
           borderRadius: windowWidth / 50,
         }}
       >
-        <TextInput placeholder="Search anything here" />
+        <View
+          style={{
+            flexDirection: "row",
+          }}
+        >
+          <TextInput
+            placeholder="Search anything here"
+            onChangeText={(text) => {
+              setSearchText(text);
+            }}
+          />
+
+          <FontAwesome
+            name="search"
+            color={Theme.icons.primary}
+            size={windowHeight / 30}
+          />
+        </View>
       </View>
       <HorizontalCategoryView
         active={filterValue}
+        setter={setFilterValue}
         items={[
           {
             name: "All",
@@ -333,35 +354,41 @@ const HorizontalCategoryView = (props) => {
       >
         {props.items.map((e, i) => {
           return (
-            <View
-              key={i}
-              style={{
-                width: windowWidth / 8,
-                marginHorizontal: windowWidth / 30,
+            <TouchableWithoutFeedback
+              onPress={() => {
+                props.setter(e.name);
               }}
             >
-              <Text
+              <View
+                key={i}
                 style={{
-                  fontFamily: Theme.fonts.Nunito_600SemiBold,
-                  color: Theme.mdDark,
-                  fontSize: windowWidth / 27,
-
-                  textAlign: "center",
+                  width: windowWidth / 8,
+                  marginHorizontal: windowWidth / 30,
                 }}
               >
-                {e.name}
-              </Text>
-              {props.active == e.name && (
-                <View
+                <Text
                   style={{
-                    height: windowHeight / 200,
-                    borderRadius: windowHeight / 300,
+                    fontFamily: Theme.fonts.Nunito_600SemiBold,
+                    color: Theme.mdDark,
+                    fontSize: windowWidth / 27,
 
-                    backgroundColor: Theme.secondary,
+                    textAlign: "center",
                   }}
-                ></View>
-              )}
-            </View>
+                >
+                  {e.name}
+                </Text>
+                {props.active == e.name && (
+                  <View
+                    style={{
+                      height: windowHeight / 200,
+                      borderRadius: windowHeight / 300,
+
+                      backgroundColor: Theme.secondary,
+                    }}
+                  ></View>
+                )}
+              </View>
+            </TouchableWithoutFeedback>
           );
         })}
       </ScrollView>

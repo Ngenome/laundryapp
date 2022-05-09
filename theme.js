@@ -1,5 +1,19 @@
 import { Dimensions } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
+const getTheme = async () => {
+  try {
+    const appTheme = await AsyncStorage.getItem("appTheme");
+    if (appTheme !== null) {
+      return appTheme;
+    }
+  } catch (e) {
+    return null;
+    console.log(null);
+  }
+};
+var nt = getTheme();
+console.log(nt);
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 export const Theme = {
@@ -28,6 +42,7 @@ export const Theme = {
     bellIconBG: "white",
     gradient: ["cyan", "#0f0a69"],
     success: "#119905",
+    danger: "red",
   },
   alert: "red",
   transparent: "transparent",
@@ -37,12 +52,18 @@ export const Theme = {
     nunito: "Nunito_400Regular",
     Nunito_600SemiBold: "Nunito_600SemiBold",
     Nunito_700Bold: "Nunito_700Bold",
+    Nunito_800ExtraBold: "Nunito_800ExtraBold",
   },
-
   primaryBG: "white",
   lightDarkBG: "#c9c9c9",
+  backgrounds: {
+    primaryBG: "#edf4ff",
+    lightDarkBG: "#c9c9c9",
+    secondary: "#d9e8ff",
+  },
+
   cardBg: "#5f40cf",
-  defaultBG: "#ebfcff",
+  defaultBG: "#e3fbff",
   sizes: {
     orderIconSize: 27,
     lgText: windowWidth / 14,
@@ -57,5 +78,7 @@ export const Theme = {
     inactiveColor: "white",
     activeBorderColor: "gray",
     inactiveBorderColor: "#4287f5",
+    errorColor: "red",
+    mainTextColor: "#02204d",
   },
 };

@@ -13,6 +13,7 @@ import {
   TouchableOpacity,
   View,
   ScrollView,
+  Modal,
 } from "react-native";
 import Checkbox from "expo-checkbox";
 import { createDrawerNavigator } from "@react-navigation/drawer";
@@ -29,6 +30,7 @@ import WashingMachine from "../assets/washing-machine.svg";
 import { useDispatch } from "react-redux";
 import { changeScreen } from "../redux/actions";
 import { Entypo } from "@expo/vector-icons";
+import { SearchBar } from "react-native-screens";
 const Stack = createStackNavigator();
 const OrderCardy = () => {
   return (
@@ -114,6 +116,7 @@ const OrderCardy = () => {
 };
 export function Orderdetail() {
   const [totalItems, setTotalItems] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const route = useRoute();
@@ -214,6 +217,40 @@ export function Orderdetail() {
             height: windowHeight / 1.6,
           }}
         >
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              setModalVisible(false);
+              navigation.goBack();
+            }}
+          >
+            <View
+              style={{
+                height: windowHeight,
+                width: windowWidth,
+                backgroundColor: "rgba(100,100,100,0.2)",
+                justifyContent: "center",
+                alignContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignContent: "center",
+                  alignItems: "center",
+                  height: windowHeight / 1.7,
+                  width: windowWidth / 1.2,
+                  backgroundColor: Theme.primaryBG,
+                  borderRadius: windowHeight / 40,
+                }}
+              >
+                <SearchBar></SearchBar>
+              </View>
+            </View>
+          </Modal>
           <ScrollView
             horizontal={false}
             style={{
@@ -225,13 +262,6 @@ export function Orderdetail() {
               name="shirt"
               imageURI="https://dictionary.cambridge.org/fr/images/thumb/shirt_noun_002_33400.jpg?version=5.0.225"
             />
-            <TallyCard imageURI="https://dictionary.cambridge.org/fr/images/thumb/shirt_noun_002_33400.jpg?version=5.0.225" />
-            <TallyCard imageURI="https://images.houseoffraser.co.uk/images/products/yl011500_4pl.jpg" />
-            <TallyCard imageURI="https://www.collinsdictionary.com/images/full/tshirt_204029461_1000.jpg" />
-            <TallyCard imageURI="https://dictionary.cambridge.org/fr/images/thumb/shirt_noun_002_33400.jpg?version=5.0.225" />
-            <TallyCard imageURI="https://dictionary.cambridge.org/fr/images/thumb/shirt_noun_002_33400.jpg?version=5.0.225" />
-            <TallyCard imageURI="https://dictionary.cambridge.org/fr/images/thumb/shirt_noun_002_33400.jpg?version=5.0.225" />
-            <TallyCard imageURI="https://dictionary.cambridge.org/fr/images/thumb/shirt_noun_002_33400.jpg?version=5.0.225" />
           </ScrollView>
         </View>
       </View>

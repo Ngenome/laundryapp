@@ -1,11 +1,14 @@
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
+import React, { useState } from "react";
 import { Text, View, SafeAreaView, Image, ImageBackground } from "react-native";
+import { useSelector } from "react-redux";
 import { BButton } from "../components";
 import { styles, windowHeight, windowWidth } from "../styles";
 import { Theme } from "../theme";
 
 export default function LandingScreen() {
+  const auth = useSelector((state) => state.auth);
   const navigation = useNavigation();
   return (
     <SafeAreaView
@@ -61,8 +64,8 @@ export default function LandingScreen() {
             style={[
               {
                 color: Theme.primary,
-                fontFamily: Theme.fonts.nunito,
-                fontSize: windowWidth / 20,
+                fontFamily: Theme.fonts.Nunito_600SemiBold,
+                fontSize: windowWidth / 23,
                 textAlign: "center",
               },
             ]}
@@ -74,7 +77,7 @@ export default function LandingScreen() {
               {
                 color: Theme.primary,
                 fontSize: windowWidth / 30,
-                fontFamily: Theme.fonts.secondary,
+                fontFamily: Theme.fonts.Nunito_600SemiBold,
                 textAlign: "center",
                 width: windowWidth / 1.3,
                 marginTop: windowHeight / 30,
@@ -108,15 +111,19 @@ export default function LandingScreen() {
               bgColor={Theme.secondary}
               family={Theme.fonts.Nunito_700Bold}
             />
-            <BButton
-              onPress={() => {
-                navigation.navigate("signup");
-              }}
-              title="SIGN UP / LOGIN"
-              bg
-              bgColor={Theme.secondary}
-              family={Theme.fonts.Nunito_700Bold}
-            />
+            {auth.loggedIn === false ? (
+              <BButton
+                onPress={() => {
+                  navigation.navigate("signup");
+                }}
+                title="SIGN UP / LOGIN"
+                bg
+                bgColor={Theme.secondary}
+                family={Theme.fonts.Nunito_700Bold}
+              />
+            ) : (
+              <></>
+            )}
           </View>
         </View>
       </LinearGradient>

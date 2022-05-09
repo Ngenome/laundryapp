@@ -1,10 +1,11 @@
 {
   "expo": {
     "name": "Ribrad laundry",
-    "slug": "ribrad_launry",
+    "slug": "ribrad-laundry",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "scheme": "com.interstellarcg.ribradlaundry",
     "splash": {
       "image": "./assets/icon.png",
       "resizeMode": "contain",
@@ -44,7 +45,7 @@
         "android.permission.WRITE_EXTERNAL_STORAGE",
         "android.permission.RECORD_AUDIO"
       ],
-      "package": "com.interstellarcg.ribrad_launry"
+      "package": "com.interstellarcg.ribradlaundry"
     },
     "web": {
       "favicon": "./assets/icon.png"

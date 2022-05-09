@@ -47,6 +47,38 @@ export default function ProfileScreen() {
     >
       <View
         style={{
+          height: windowHeight * 0.9,
+          width: windowWidth,
+          position: "absolute",
+          zIndex: -2,
+          backgroundColor: Theme.backgrounds.secondary,
+        }}
+      >
+        <View
+          style={{
+            height: windowHeight * 0.34,
+            width: windowWidth,
+
+            position: "relative",
+          }}
+        ></View>
+        <View>
+          <View
+            style={{
+              height: windowHeight * 0.56,
+              width: windowWidth,
+              borderTopRightRadius: windowWidth / 16,
+              borderTopLeftRadius: windowWidth / 16,
+              alignSelf: "flex-end",
+
+              position: "relative",
+              backgroundColor: Theme.primaryBG,
+            }}
+          ></View>
+        </View>
+      </View>
+      <View
+        style={{
           justifyContent: "center",
           alignContent: "center",
           alignItems: "center",
@@ -56,8 +88,9 @@ export default function ProfileScreen() {
           style={[
             styles.flexRow,
             {
-              width: windowWidth / 1.2,
+              width: windowWidth / 1.4,
               marginBottom: 5,
+              marginTop: windowHeight / 60,
             },
           ]}
         >
@@ -75,14 +108,20 @@ export default function ProfileScreen() {
               uri: "https://media-exp1.licdn.com/dms/image/C4D03AQF0lTK8c0nRMQ/profile-displayphoto-shrink_200_200/0/1637662257665?e=1653523200&v=beta&t=pNsKj6Cw8gSFCmGtRleCSmNkbAQcYABNVVtS1r47TCE",
             }}
             style={{
-              height: windowHeight / 10,
-              width: windowHeight / 10,
-              borderRadius: windowHeight / 20,
+              height: windowHeight / 12,
+              width: windowHeight / 12,
+              borderRadius: windowHeight / 24,
             }}
           />
         </View>
       </View>
-      <View style={{ alignContent: "center", alignItems: "center" }}>
+      <View
+        style={{
+          alignContent: "center",
+          alignItems: "center",
+          marginTop: windowHeight / 34,
+        }}
+      >
         <View
           style={{
             height: windowHeight / 4,
@@ -91,7 +130,7 @@ export default function ProfileScreen() {
             borderRadius: windowWidth / 30,
             elevation: 20,
             alignContent: "center",
-            // alignItems: "center",
+            justifyContent: "center",
           }}
         >
           <ProfileChunkView
@@ -101,7 +140,7 @@ export default function ProfileScreen() {
             icon={
               <MaterialIcons
                 name="phone-enabled"
-                size={24}
+                size={windowWidth * 0.06}
                 color={Theme.secondary}
               />
             }
@@ -113,7 +152,11 @@ export default function ProfileScreen() {
               marginLeft: 20,
             }}
             icon={
-              <MaterialIcons name="email" size={24} color={Theme.secondary} />
+              <MaterialIcons
+                name="email"
+                size={windowWidth * 0.06}
+                color={Theme.secondary}
+              />
             }
             title="Email"
             detail="josh@Kuku.yai"
@@ -125,7 +168,7 @@ export default function ProfileScreen() {
             icon={
               <FontAwesome
                 name="credit-card-alt"
-                size={24}
+                size={windowWidth * 0.05}
                 color={Theme.secondary}
               />
             }
@@ -136,33 +179,42 @@ export default function ProfileScreen() {
         <View
           style={{
             height: windowHeight / 3,
-            marginTop: 13,
-            width: windowWidth / 1.2,
+            marginTop: windowHeight / 40,
+            width: windowWidth / 1.3,
             backgroundColor: Theme.transparent,
             borderRadius: windowWidth / 30,
 
             alignContent: "center",
-            alignItems: "center",
+
+            justifyContent: "center",
           }}
         >
-          <Text
+          <View
             style={{
-              color: Theme.darkText,
-              fontSize: 18,
-              fontWeight: "bold",
+              width: windowWidth / 1.5,
+              marginLeft: windowWidth / 24,
             }}
           >
-            Privacy and notification
-          </Text>
+            <Text
+              style={{
+                color: Theme.darkText,
+                fontSize: 14,
+                fontFamily: Theme.fonts.Nunito_800ExtraBold,
+                textAlign: "left",
+              }}
+            >
+              Privacy and notification
+            </Text>
+          </View>
           <View
             style={{
               height: windowHeight / 3.4,
               width: windowWidth / 1.3,
               backgroundColor: Theme.primary,
               borderRadius: windowWidth / 30,
-              // elevation: 20,
+              marginTop: windowHeight / 60,
+
               alignContent: "center",
-              // alignItems: "center",
             }}
           >
             <TouchableOpacity>
@@ -174,7 +226,7 @@ export default function ProfileScreen() {
                   <MaterialIcons
                     name="security"
                     size={24}
-                    color={Theme.privacyIcon}
+                    color={Theme.icons.secondary}
                   />
                 }
                 title="Privacy"
@@ -195,21 +247,26 @@ export default function ProfileScreen() {
               title="notifications"
               detail="2"
             />
-
-            <ProfileChunkView
-              style={{
-                marginLeft: 20,
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("help", {});
               }}
-              icon={
-                <Feather
-                  name="message-circle"
-                  size={24}
-                  color={Theme.secondary}
-                />
-              }
-              title="help"
-              detail="0200 021 000"
-            />
+            >
+              <ProfileChunkView
+                style={{
+                  marginLeft: 20,
+                }}
+                icon={
+                  <Feather
+                    name="message-circle"
+                    size={24}
+                    color={Theme.secondary}
+                  />
+                }
+                title="help"
+                detail="0200 021 000"
+              />
+            </TouchableOpacity>
           </View>
         </View>
         <TouchableOpacity
@@ -235,7 +292,7 @@ export default function ProfileScreen() {
               style={{
                 color: Theme.primary,
                 fontSize: 16,
-                fontWeight: "bold",
+                fontFamily: Theme.fonts.Nunito_600SemiBold,
               }}
             >
               Edit profile
@@ -277,7 +334,7 @@ const ProfileChunkView = (props) => {
           style={{
             color: Theme.darkText,
             fontSize: 16,
-            fontFamily: Theme.fonts.secondary,
+            fontFamily: Theme.fonts.Nunito_600SemiBold,
           }}
         >
           {props.title}

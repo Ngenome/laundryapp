@@ -464,9 +464,9 @@ function BottomTotal(props) {
         </Text>
         <Text
           style={{
-            fontWeight: "bold",
+            fontFamily: Theme.fonts.Nunito_600SemiBold,
             color: Theme.tertiary,
-            fontSize: windowWidth / 18,
+            fontSize: windowWidth / 22,
             textAlign: "left",
           }}
         >
@@ -480,7 +480,7 @@ function BottomTotal(props) {
       >
         <View
           style={{
-            height: windowHeight / 13,
+            height: windowHeight / 16,
             borderRadius: windowWidth / 30,
             backgroundColor: Theme.secondary,
             width: windowWidth / 2.5,

@@ -15,7 +15,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Rubik_400Regular, Rubik_300Light } from "@expo-google-fonts/rubik";
 import { Theme } from "./theme";
 import AppLoading from "expo-app-loading";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BButton, FButton, IconInput } from "./components";
 import { styles, windowHeight, windowWidth } from "./styles";
 
@@ -24,8 +24,8 @@ import MainSlide from "./src/screens/Slider";
 
 import { useNavigation } from "@react-navigation/native";
 import { Laundry } from "./screens/laundry";
-import LoginScreen from "./screens/login";
-import SignUpScreen from "./screens/signup";
+import LoginScreen from "./screens/auth/login";
+import SignUpScreen from "./screens/auth/signup";
 import HomeScreen from "./screens/home";
 import { Provider, useSelector } from "react-redux";
 import {
@@ -33,6 +33,8 @@ import {
   Nunito_400Regular,
   Nunito_600SemiBold,
   Nunito_700Bold,
+  Nunito_800ExtraBold,
+  Nunito_900Black,
 } from "@expo-google-fonts/nunito";
 Poppins_400Regular;
 import { FredokaOne_400Regular } from "@expo-google-fonts/fredoka-one";
@@ -55,6 +57,9 @@ import { ShopCart } from "./screens/shop/cart";
 import CustomerPayments from "./screens/laundry/customerpayments";
 import CourierDetails from "./screens/laundry/courier_details";
 import LaundryOnboarding from "./screens/laundry/onboarding";
+import SubscriptionsScreen from "./screens/laundry/subscriptions";
+import HelpScreen from "./screens/help";
+
 const Stack = createStackNavigator();
 
 const Drawer = createDrawerNavigator();
@@ -91,6 +96,8 @@ export default function App() {
     FredokaOne_400Regular,
     VarelaRound_400Regular,
     Poppins_400Regular,
+    Nunito_800ExtraBold,
+    Nunito_900Black,
   });
 
   if (!fontsLoaded) {
@@ -115,7 +122,6 @@ export default function App() {
           <Stack.Screen
             name="laundry_onboarding"
             component={LaundryOnboarding}
-            TouchableWithoutFeedback
             options={{ headerShown: false }}
           />
 
@@ -175,6 +181,12 @@ export default function App() {
           <Stack.Screen
             name="shop_home"
             component={ShopNavigator}
+            options={{ headerTitle: HeaderTitle }}
+          />
+
+          <Stack.Screen
+            name="subscriptions"
+            component={SubscriptionsScreen}
             options={{ headerTitle: HeaderTitle }}
           />
           <Stack.Screen
@@ -298,6 +310,11 @@ export default function App() {
             component={CourierDetails}
             options={{ headerShown: false }}
             // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+          />
+          <Stack.Screen
+            name="help"
+            component={HelpScreen}
+            options={{ headerTitle: HeaderTitle }}
           />
         </Stack.Navigator>
       </NavigationContainer>

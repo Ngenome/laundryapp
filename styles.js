@@ -38,7 +38,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   lgText: {
-    fontFamily: Theme.fonts.primaryFont,
+    fontFamily: Theme.fonts.Nunito_700Bold,
 
     fontSize: Theme.sizes.lgText,
   },
@@ -64,3 +64,8 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+
+export const CustomBorder=()=>{
+  return( border)
+ 
+}   

@@ -20,8 +20,15 @@ import { LinearGradient } from "expo-linear-gradient";
 
 import { Theme } from "../theme";
 import AppLoading from "expo-app-loading";
-import { useEffect, useState } from "react";
-import { BButton, FButton, IconInput } from "../components";
+import React, { useEffect, useState } from "react";
+import {
+  BButton,
+  FButton,
+  IconInput,
+  CenteredButton,
+  Rule,
+  InlineItemValueView,
+} from "../components";
 import { styles, windowHeight, windowWidth } from "../styles";
 
 import { createStackNavigator } from "@react-navigation/stack";
@@ -29,7 +36,7 @@ import WashingMachine from "../assets/washing-machine.svg";
 import { useDispatch } from "react-redux";
 import { changeScreen } from "../redux/actions";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
-import { Rule } from "./laundry/customerpayments";
+
 const Stack = createStackNavigator();
 
 export function OrderSummary() {
@@ -77,7 +84,7 @@ export function OrderSummary() {
             >
               <Text
                 style={{
-                  fontWeight: "bold",
+                  fontFamily: Theme.fonts.Nunito_700Bold,
                   color: Theme.primary,
                   fontSize: Theme.sizes.lgText,
                   textAlign: "left",
@@ -87,7 +94,7 @@ export function OrderSummary() {
               </Text>
               <Text
                 style={{
-                  fontWeight: "bold",
+                  fontFamily: Theme.fonts.Nunito_700Bold,
                   color: Theme.primary,
                   fontSize: Theme.sizes.lgText,
                   textAlign: "left",
@@ -209,7 +216,7 @@ export function OrderSummary() {
           <View>
             <Text
               style={{
-                fontFamily: Theme.fonts.secondary,
+                fontFamily: Theme.fonts.Nunito_600SemiBold,
                 color: Theme.lightDark,
                 fontSize: Theme.sizes.mdText + 3,
                 textAlign: "left",
@@ -219,7 +226,7 @@ export function OrderSummary() {
             </Text>
             <Text
               style={{
-                fontFamily: Theme.fonts.secondary,
+                fontFamily: Theme.fonts.Nunito_600SemiBold,
                 color: Theme.darkText,
                 fontSize: Theme.sizes.mdText + 0.3,
                 textAlign: "left",
@@ -235,7 +242,7 @@ export function OrderSummary() {
           >
             <Text
               style={{
-                fontFamily: Theme.fonts.primaryFont,
+                fontFamily: Theme.fonts.Nunito_600SemiBold,
                 color: Theme.secondary,
                 fontSize: Theme.sizes.mdText,
                 textAlign: "left",
@@ -251,6 +258,7 @@ export function OrderSummary() {
         wRatio={1.2}
         title="Shedule Pickup Now"
         bgColor={Theme.secondary}
+        font={Theme.fonts.nunito}
         radiusRatio={23}
         onPress={() => {
           navigation.navigate("checkout");
@@ -265,7 +273,7 @@ const ServiceSummaryCard = (props) => {
     <View>
       <Text
         style={{
-          fontWeight: "bold",
+          fontFamily: Theme.fonts.Nunito_600SemiBold,
           color: Theme.lightDark,
           fontSize: windowWidth / 23,
           textAlign: "left",
@@ -283,7 +291,7 @@ const ServiceSummaryCard = (props) => {
               <View style={{}}>
                 <Text
                   style={{
-                    fontFamily: Theme.fonts.secondary,
+                    fontFamily: Theme.fonts.Nunito_600SemiBold,
                     color: Theme.darkText,
                     fontSize: Theme.sizes.mdText,
                   }}
@@ -297,9 +305,9 @@ const ServiceSummaryCard = (props) => {
               <View>
                 <Text
                   style={{
-                    fontFamily: Theme.fonts.primaryFont,
+                    fontFamily: Theme.fonts.Nunito_700Bold,
                     color: Theme.secondary,
-                    fontSize: Theme.sizes.mdText + 3,
+                    fontSize: Theme.sizes.mdText,
                   }}
                 >
                   {props.sign} {e.cost}
@@ -310,73 +318,5 @@ const ServiceSummaryCard = (props) => {
         })}
       </View>
     </View>
-  );
-};
-
-export const InlineItemValueView = (props) => {
-  return (
-    <View
-      style={[
-        { flexDirection: "row", justifyContent: "space-between" },
-        props.style,
-      ]}
-    >
-      <View style={{}}>
-        <Text
-          style={{
-            fontWeight: "bold",
-            color: Theme.mdDark,
-            fontSize: Theme.sizes.mdText + 3,
-          }}
-        >
-          {props.item}
-        </Text>
-      </View>
-
-      <View>
-        <Text
-          style={{
-            fontWeight: "bold",
-            color: Theme.secondary,
-            fontSize: Theme.sizes.mdText + 3,
-          }}
-        >
-          {props.value}
-        </Text>
-      </View>
-    </View>
-  );
-};
-
-export const CenteredButton = (props) => {
-  return (
-    <TouchableOpacity onPress={props.onPress}>
-      <View
-        style={[
-          {
-            height: windowHeight / props.hRatio,
-            borderRadius: windowWidth / props.radiusRatio,
-            backgroundColor: props.bgColor,
-            width: windowWidth / props.wRatio,
-            justifyContent: "center",
-
-            alignContent: "center",
-            alignItems: "center",
-          },
-          props.style,
-        ]}
-      >
-        <Text
-          style={{
-            fontWeight: "bold",
-            color: Theme.primary,
-            fontSize: windowWidth / 23,
-            textAlign: "left",
-          }}
-        >
-          {props.title}
-        </Text>
-      </View>
-    </TouchableOpacity>
   );
 };

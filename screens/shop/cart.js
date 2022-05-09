@@ -52,9 +52,10 @@ export function ShopCart() {
     var totalCost = 0;
     var totalTax = 0;
     cart.forEach((e, i) => {
-      totalCost += e.cost * e.amount;
-      totalTax += e.tax * e.amount;
+      totalCost += e.amount * e.cost;
+      totalTax += e.amount * e.tax;
     });
+
     setPaymentSummaryState({ cost: totalCost, tax: totalTax });
   };
   const renderProduct = ({ item }) => (
@@ -68,6 +69,9 @@ export function ShopCart() {
       calculator={PaymentSummaryCalculator}
     />
   );
+  useEffect(() => {
+    PaymentSummaryCalculator();
+  }, []);
   return (
     <View
       style={{
@@ -188,6 +192,14 @@ function ShopTallyCard(props) {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const [amount, setAmount] = useState(0);
+  var [ID, setID] = useState(null);
+  useEffect(() => {
+    cart.map((e, i) => {
+      if (e.id == props.id) {
+        setID(i);
+      }
+    });
+  }, []);
   return (
     <View
       style={{
@@ -257,6 +269,7 @@ function ShopTallyCard(props) {
           <TouchableOpacity
             onPress={() => {
               dispatch(REMOVEITEM(props.id));
+              props.calculator();
               props.forceUpdateState();
             }}
           >
@@ -302,6 +315,7 @@ function ShopTallyCard(props) {
                 dispatch(
                   CHANGEITEM({ id: props.id, item: "amount", value: amount })
                 );
+                props.forceUpdateState();
                 props.calculator();
                 props.forceUpdateState();
               }

@@ -19,13 +19,13 @@ import { LinearGradient } from "expo-linear-gradient";
 
 import { Theme } from "../theme";
 import AppLoading from "expo-app-loading";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BButton, FButton, IconInput, Cardy } from "../components";
 import { styles, windowHeight, windowWidth } from "../styles";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import WashingMachine from "../assets/washing-machine.svg";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeScreen } from "../redux/actions";
 import { Nunito_400Regular, useFonts } from "@expo-google-fonts/nunito";
 import Carousel from "./carousel";
@@ -58,6 +58,7 @@ export function Laundry() {
     Nunito: require("../assets/Nunito/NunitoRegular.ttf"),
     Nunito_400Regular,
   });
+  const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigation = useNavigation();
   useFocusEffect(() => {
@@ -70,6 +71,7 @@ export function Laundry() {
     <View
       style={{
         alignContent: "center",
+        backgroundColor: Theme.backgrounds.primaryBG,
         alignItems: "center",
       }}
     >
@@ -93,7 +95,7 @@ export function Laundry() {
             color: Theme.darkText,
           }}
         >
-          Hi Josh!
+          Hi {auth.username}
         </Text>
         <View
           style={{
@@ -105,7 +107,7 @@ export function Laundry() {
               fontSize: 18,
 
               color: Theme.darkText,
-              fontFamily: Theme.fonts.Nunito_600SemiBold,
+              fontFamily: Theme.fonts.Nunito_800ExtraBold,
             }}
           >
             What services do you
@@ -113,7 +115,7 @@ export function Laundry() {
           <Text
             style={{
               fontSize: 18,
-              fontFamily: Theme.fonts.Nunito_600SemiBold,
+              fontFamily: Theme.fonts.Nunito_800ExtraBold,
               color: Theme.darkText,
             }}
           >

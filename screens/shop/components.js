@@ -1,7 +1,7 @@
-import { Entypo } from "@expo/vector-icons";
+import { Entypo, FontAwesome } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { View, Text, Image, ScrollView } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import { windowHeight, windowWidth } from "../../styles";
 import { Theme } from "../../theme";
 
@@ -319,3 +319,32 @@ export function InlineItemStarsCostView(props) {
     </View>
   );
 }
+export const SearchBar = (props) => {
+  return (
+    <View
+      style={{
+        flexDirection: "row",
+        justifyContent: "space-between",
+      }}
+    >
+      <TextInput
+        placeholder="Search anything here"
+        onChangeText={(text) => {
+          props.setSearchText(text);
+        }}
+      />
+      <TouchableOpacity
+        style={{
+          padding: windowWidth / 80,
+        }}
+        onPress={props.onSearch}
+      >
+        <FontAwesome
+          name="search"
+          color={Theme.icons.secondary}
+          size={windowHeight / 30}
+        />
+      </TouchableOpacity>
+    </View>
+  );
+};

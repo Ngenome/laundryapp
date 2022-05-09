@@ -1,3 +1,4 @@
+import React from "react";
 import { AntDesign, Entypo, Ionicons } from "@expo/vector-icons";
 import { View, Text } from "react-native";
 import MapView, { Callout, Marker } from "react-native-maps";
