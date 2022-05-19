@@ -8,9 +8,10 @@ import {
   View,
   TouchableWithoutFeedback,
 } from "react-native";
+
 import store from "./redux/store";
-import Checkbox from "expo-checkbox";
-import { createDrawerNavigator } from "@react-navigation/drawer";
+// import Checkbox from "expo-checkbox";
+// import { createDrawerNavigator } from "@react-navigation/drawer";
 import { LinearGradient } from "expo-linear-gradient";
 import { Rubik_400Regular, Rubik_300Light } from "@expo-google-fonts/rubik";
 import { Theme } from "./theme";
@@ -20,10 +21,10 @@ import { BButton, FButton, IconInput } from "./components";
 import { styles, windowHeight, windowWidth } from "./styles";
 
 import { createStackNavigator } from "@react-navigation/stack";
-import MainSlide from "./src/screens/Slider";
+// import MainSlide from "./src/screens/Slider";
 
-import { useNavigation } from "@react-navigation/native";
-import { Laundry } from "./screens/laundry";
+// import { useNavigation } from "@react-navigation/native";
+// import { Laundry } from "./screens/laundry";
 import LoginScreen from "./screens/auth/login";
 import SignUpScreen from "./screens/auth/signup";
 import HomeScreen from "./screens/home";
@@ -38,14 +39,13 @@ import {
 } from "@expo-google-fonts/nunito";
 Poppins_400Regular;
 import { FredokaOne_400Regular } from "@expo-google-fonts/fredoka-one";
-
 import { Orderdetail } from "./screens/orderdetail";
 import { OrderSummary } from "./screens/summary";
 import { Checkout } from "./screens/checkout";
 import { VarelaRound_400Regular } from "@expo-google-fonts/varela-round";
 import { Poppins_400Regular } from "@expo-google-fonts/poppins";
 import { EditAddress } from "./screens/editAddress";
-import HistoryScreen, { OrderHistory } from "./screens/orderhistory";
+// import HistoryScreen, { OrderHistory } from "./screens/orderhistory";
 import EditProfileScreen from "./screens/editprofile";
 import LandingScreen from "./screens/landing";
 import ShopNavigator, { ShopHomeScreen } from "./screens/shop/home";
@@ -59,10 +59,10 @@ import CourierDetails from "./screens/laundry/courier_details";
 import LaundryOnboarding from "./screens/laundry/onboarding";
 import SubscriptionsScreen from "./screens/laundry/subscriptions";
 import HelpScreen from "./screens/help";
-
+import { DrawerModalScreen } from "./screens/drawer-modal";
+import { Provider as PaperProvider } from "react-native-paper";
 const Stack = createStackNavigator();
 
-const Drawer = createDrawerNavigator();
 function LogoTitle(props) {
   return (
     <View
@@ -103,170 +103,106 @@ export default function App() {
   if (!fontsLoaded) {
     return <AppLoading />;
   }
+
   return (
-    <Provider store={store}>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="landing"
-            component={LandingScreen}
-            options={{ headerShown: false }}
-            // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-          />
-          <Stack.Screen
-            name="Login"
-            component={LoginScreen}
-            TouchableWithoutFeedback
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="laundry_onboarding"
-            component={LaundryOnboarding}
-            options={{ headerShown: false }}
-          />
+    <PaperProvider>
+      <Provider store={store}>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="landing"
+              component={LandingScreen}
+              options={{ headerShown: false }}
+              // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+            />
+            <Stack.Screen
+              name="Login"
+              component={LoginScreen}
+              TouchableWithoutFeedback
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="laundry_onboarding"
+              component={LaundryOnboarding}
+              options={{ headerShown: false }}
+            />
 
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{ headerShown: false }}
-            // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-          />
-          <Stack.Screen
-            name="signup"
-            component={SignUpScreen}
-            options={{ headerShown: false }}
-            // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-          />
-          <Stack.Screen
-            name="order"
-            component={Orderdetail}
-            options={{ headerShown: true }}
-            // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-          />
-          <Stack.Screen
-            name="summary"
-            component={OrderSummary}
-            options={{ headerShown: true }}
-            // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-          />
-          <Stack.Screen
-            name="checkout"
-            component={Checkout}
-            options={{ headerShown: true }}
-            // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-          />
-          <Stack.Screen
-            name="editaddress"
-            component={EditAddress}
-            options={{ headerShown: true }}
-            // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-          />
-          <Stack.Screen
-            name="editprofile"
-            component={EditProfileScreen}
-            options={{ headerShown: true }}
-            // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-          />
-          <Stack.Screen
-            name="shop"
-            component={ShopLandingScreen}
-            options={{ headerShown: false }}
-            // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-          />
-          <Stack.Screen
-            name="shop_discover"
-            component={ShopDiscoverScreen}
-            options={{ headerTitle: HeaderTitle }}
-          />
-          <Stack.Screen
-            name="shop_home"
-            component={ShopNavigator}
-            options={{ headerTitle: HeaderTitle }}
-          />
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{ headerShown: false }}
+              // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+            />
+            <Stack.Screen
+              name="signup"
+              component={SignUpScreen}
+              options={{ headerShown: false }}
+              // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+            />
+            <Stack.Screen
+              name="order"
+              component={Orderdetail}
+              options={{ headerShown: true }}
+              // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+            />
+            <Stack.Screen
+              name="summary"
+              component={OrderSummary}
+              options={{ headerShown: true }}
+              // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+            />
+            <Stack.Screen
+              name="drawer_modal"
+              component={DrawerModalScreen}
+              screenOptions={{ presentation: "modal" }}
+              options={{ headerShown: false }}
+              // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+            />
+            <Stack.Screen
+              name="checkout"
+              component={Checkout}
+              options={{ headerShown: true }}
+              // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+            />
+            <Stack.Screen
+              name="editaddress"
+              component={EditAddress}
+              options={{ headerShown: true }}
+              // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+            />
+            <Stack.Screen
+              name="editprofile"
+              component={EditProfileScreen}
+              options={{ headerShown: true }}
+              // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+            />
+            <Stack.Screen
+              name="shop"
+              component={ShopLandingScreen}
+              options={{ headerShown: false }}
+              // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+            />
+            <Stack.Screen
+              name="shop_discover"
+              component={ShopDiscoverScreen}
+              options={{ headerTitle: HeaderTitle }}
+            />
+            <Stack.Screen
+              name="shop_home"
+              component={ShopNavigator}
+              options={{ headerTitle: HeaderTitle }}
+            />
 
-          <Stack.Screen
-            name="subscriptions"
-            component={SubscriptionsScreen}
-            options={{ headerTitle: HeaderTitle }}
-          />
-          <Stack.Screen
-            name="shop_product_detail"
-            component={ShopProductScreen}
-            options={{
-              headerTitle: (props) => {
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                >
-                  <View>
-                    <Text
-                      style={{
-                        fontFamily: Theme.fonts.primaryFont,
-                        color: Theme.darkText,
-                      }}
-                    >
-                      {props.title}
-                    </Text>
-                    <Text
-                      style={{
-                        fontFamily: Theme.fonts.Nunito_600SemiBold,
-                        color: Theme.darkText,
-                      }}
-                    >
-                      Josh
-                    </Text>
-                  </View>
-                  <View
-                    style={{
-                      width: windowWidth / 2.3,
-                    }}
-                  ></View>
-                  <TouchableWithoutFeedback
-                    onPress={() => {
-                      navigation.navigate("notifications");
-                    }}
-                  >
-                    <View
-                      style={{
-                        position: "relative",
-                      }}
-                    >
-                      <Ionicons
-                        name="ios-notifications-sharp"
-                        size={24}
-                        color={Theme.icons.dark}
-                      />
-                      <Text
-                        style={{
-                          fontFamily: Theme.fonts.Nunito_600SemiBold,
-                          color: Theme.alert,
-                          fontSize: 10,
-                          padding: 3,
-                          backgroundColor: Theme.icons.bellIconBG,
-                          borderRadius: 15,
-                          textAlign: "center",
-                          position: "absolute",
-                          right: 0,
-                        }}
-                      >
-                        {5}
-                      </Text>
-                    </View>
-                  </TouchableWithoutFeedback>
-                </View>;
-              },
-            }}
-          />
-          <Stack.Screen
-            name="shop_cart"
-            component={ShopCart}
-            options={{
-              headerShown: true,
-              headerTitle: (props) => {
-                return (
+            <Stack.Screen
+              name="subscriptions"
+              component={SubscriptionsScreen}
+              options={{ headerTitle: HeaderTitle }}
+            />
+            <Stack.Screen
+              name="shop_product_detail"
+              component={ShopProductScreen}
+              options={{
+                headerTitle: (props) => {
                   <View
                     style={{
                       flexDirection: "row",
@@ -277,54 +213,131 @@ export default function App() {
                     <View>
                       <Text
                         style={{
+                          fontFamily: Theme.fonts.primaryFont,
+                          color: Theme.darkText,
+                        }}
+                      >
+                        {props.title}
+                      </Text>
+                      <Text
+                        style={{
                           fontFamily: Theme.fonts.Nunito_600SemiBold,
                           color: Theme.darkText,
                         }}
                       >
-                        Cart
+                        Josh
                       </Text>
                     </View>
                     <View
                       style={{
-                        width: windowWidth / 1.8,
+                        width: windowWidth / 2.3,
                       }}
                     ></View>
-                    <AntDesign
-                      name="delete"
-                      color={Theme.icons.secondary}
-                      size={windowWidth / 16}
-                    />
-                  </View>
-                );
-              },
-            }}
-          />
-          <Stack.Screen
-            name="customer_payments"
-            component={CustomerPayments}
-            options={{ headerShown: false }}
-            // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-          />
-          <Stack.Screen
-            name="courier_details"
-            component={CourierDetails}
-            options={{ headerShown: false }}
-            // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-          />
-          <Stack.Screen
-            name="help"
-            component={HelpScreen}
-            options={{ headerTitle: HeaderTitle }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </Provider>
+                    <TouchableWithoutFeedback
+                      onPress={() => {
+                        navigation.navigate("notifications");
+                      }}
+                    >
+                      <View
+                        style={{
+                          position: "relative",
+                        }}
+                      >
+                        <Ionicons
+                          name="ios-notifications-sharp"
+                          size={24}
+                          color={Theme.icons.dark}
+                        />
+                        <Text
+                          style={{
+                            fontFamily: Theme.fonts.Nunito_600SemiBold,
+                            color: Theme.alert,
+                            fontSize: 10,
+                            padding: 3,
+                            backgroundColor: Theme.icons.bellIconBG,
+                            borderRadius: 15,
+                            textAlign: "center",
+                            position: "absolute",
+                            right: 0,
+                          }}
+                        >
+                          {5}
+                        </Text>
+                      </View>
+                    </TouchableWithoutFeedback>
+                  </View>;
+                },
+              }}
+            />
+            <Stack.Screen
+              name="shop_cart"
+              component={ShopCart}
+              options={{
+                headerShown: true,
+                headerTitle: (props) => {
+                  return (
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                      }}
+                    >
+                      <View>
+                        <Text
+                          style={{
+                            fontFamily: Theme.fonts.Nunito_600SemiBold,
+                            color: Theme.darkText,
+                          }}
+                        >
+                          Cart
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          width: windowWidth / 1.8,
+                        }}
+                      ></View>
+                      <AntDesign
+                        name="delete"
+                        color={Theme.icons.secondary}
+                        size={windowWidth / 16}
+                      />
+                    </View>
+                  );
+                },
+              }}
+            />
+            <Stack.Screen
+              name="customer_payments"
+              component={CustomerPayments}
+              options={{ headerShown: false }}
+              // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+            />
+            <Stack.Screen
+              name="courier_details"
+              component={CourierDetails}
+              options={{ headerShown: false }}
+              // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+            />
+            <Stack.Screen
+              name="help"
+              component={HelpScreen}
+              options={{ headerTitle: HeaderTitle }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
+    </PaperProvider>
   );
 }
 
 export function Home() {
   return (
-    <LinearGradient colors={Theme.gradientColors} style={styles.container}>
+    <LinearGradient
+      colorcourier_detailss={Theme.gradientColors}
+      style={styles.container}
+    >
       <View
         style={{
           flexDirection: "column",

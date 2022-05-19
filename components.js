@@ -25,6 +25,7 @@ import { styles } from "./styles";
 import { Theme } from "./theme";
 import React, { useRef } from "react";
 import PhoneInput from "react-native-phone-number-input";
+
 export const FButton = (props) => {
   return (
     <TouchableOpacity onPress={props.onPress}>
@@ -507,20 +508,20 @@ export const CenteredButton = (props) => {
   return (
     <TouchableOpacity onPress={props.onPress}>
       <View
-        style={[
-          {
-            height: windowHeight / props.hRatio,
-            borderRadius: windowWidth / props.radiusRatio,
-            backgroundColor: props.bgColor,
-            width: windowWidth / props.wRatio,
-            justifyContent: "center",
+        style={{
+          height: windowHeight / props.hRatio,
+          borderRadius: windowWidth / props.radiusRatio,
+          backgroundColor: props.bgColor,
+          width: windowWidth / props.wRatio,
+          justifyContent: "center",
+          flexDirection: "row",
 
-            alignContent: "center",
-            alignItems: "center",
-          },
-          props.style,
-        ]}
+          alignContent: "center",
+          alignItems: "center",
+          ...props.style,
+        }}
       >
+        {props.left}
         <Text
           style={{
             fontFamily: props.font ? props.font : "Nunito_600SemiBold",

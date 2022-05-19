@@ -1,7 +1,9 @@
+import { Entypo, Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useState } from "react";
 import { Text, View, SafeAreaView, Image, ImageBackground } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import { useSelector } from "react-redux";
 import { BButton } from "../components";
 import { styles, windowHeight, windowWidth } from "../styles";
@@ -31,11 +33,34 @@ export default function LandingScreen() {
       >
         <View
           style={{
-            height: windowHeight / 1.3,
+            height: windowHeight / 1.2,
             alignContent: "center",
             alignItems: "center",
           }}
         >
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              width: windowWidth,
+              // marginBottom: windowHeight / 20,
+              marginTop: windowHeight / 60,
+              marginLeft: windowWidth / 20,
+            }}
+          >
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("drawer_modal");
+              }}
+            >
+              <Feather
+                color={Theme.primary}
+                size={windowWidth / 14}
+                name="menu"
+              />
+            </TouchableOpacity>
+            <View></View>
+          </View>
           <Text
             style={[
               styles.lgText,

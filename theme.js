@@ -19,6 +19,8 @@ const windowHeight = Dimensions.get("window").height;
 export const Theme = {
   primary: "white",
   secondary: "#2f84fa",
+  foreground: "black",
+  foregroundOnColoredViews: "white",
   text: {
     primary: "white",
     secondary: "#2f84fa",
@@ -60,6 +62,7 @@ export const Theme = {
     primaryBG: "#edf4ff",
     lightDarkBG: "#c9c9c9",
     secondary: "#d9e8ff",
+    darkBlue: "#0e0f30",
   },
 
   cardBg: "#5f40cf",

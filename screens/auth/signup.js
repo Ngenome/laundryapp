@@ -63,8 +63,10 @@ export default function SignUpScreen() {
   const [request, response, promptAsync] = Google.useAuthRequest({
     androidClientId: GOOGLE_ANDROID_OAUTH_ID,
     iosClientId: GOOGLE_IOS_OAUTH_ID,
-    expoClientId: GOOGLE_EXPO_OAUTH_ID,
-    webClientId: GOOGLE_EXPO_OAUTH_ID,
+    expoClientId:
+      "359720046968-g76b82nqm0205cvth3kfm8qp26mrkfr2.apps.googleusercontent.com",
+    webClientId:
+      "359720046968-g76b82nqm0205cvth3kfm8qp26mrkfr2.apps.googleusercontent.com",
   });
 
   React.useEffect(() => {

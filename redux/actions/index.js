@@ -2,6 +2,10 @@ export const changeScreen = (task) => ({
   type: "CHANGE_SCREEN",
   payload: task,
 });
+export const changeDrawerScreen = (task) => ({
+  type: "CHANGE_DRAWER_SCREEN",
+  payload: task,
+});
 export const LOGIN = (task) => ({
   type: "LOGIN",
   payload: task,
@@ -40,5 +44,19 @@ export const CHANGELAUNDRYITEM = (task) => ({
 });
 export const SETNEXTSCREEN = (task) => ({
   type: "SETNEXTSCREEN",
+  payload: task,
+});
+export const addServiceItem = (task) => ({
+  type: "ADDSERVICEITEM",
+  payload: task,
+});
+
+export const addService = (task) => ({
+  type: "ADDSERVICE",
+  payload: task,
+});
+
+export const updateOrderScreen = (task) => ({
+  type: "UPDATEORDERSCREEN",
   payload: task,
 });

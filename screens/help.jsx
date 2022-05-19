@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, React } from "react";
 import { View, Text } from "react-native";
 import { windowHeight, windowWidth } from "../styles";
 import { Theme } from "../theme";
@@ -7,6 +7,9 @@ import { CenteredButton } from "../components";
 import Collapsible from "react-native-collapsible";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { Entypo } from "@expo/vector-icons";
+import MapView from "react-native-maps";
+import { List } from "react-native-paper";
+import { DefaultText } from "../components/texts";
 const helpItems = [
   {
     name: "Help with a trip",
@@ -31,6 +34,9 @@ const helpItems = [
 ];
 
 export default function HelpScreen() {
+  const [expanded, setExpanded] = useState(true);
+
+  const handlePress = () => setExpanded(!expanded);
   const [activePage, setActivePage] = useState("laundry");
   const [activeSections, setActiveSections] = useState([]);
   const [isCollapsed, setCollapsed] = useState(false);
@@ -126,7 +132,20 @@ export default function HelpScreen() {
             backgroundColor: Theme.backgrounds.primaryBG,
             marginTop: windowHeight / 60,
           }}
-        ></View>
+        >
+          <MapView
+            style={{
+              height: windowHeight * 0.2,
+              width: windowWidth / 1.2,
+            }}
+            region={{
+              latitude: 37.78825,
+              longitude: -122.4324,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            }}
+          />
+        </View>
         <Text
           style={{
             color: Theme.colors.mainTextColor,
@@ -139,11 +158,72 @@ export default function HelpScreen() {
         </Text>
         <View
           style={{
-            height: windowHeight / 6,
-            width: windowWidth / 5,
+            height: windowHeight / 2.5,
+            width: windowWidth / 1.2,
           }}
         >
-          <NumberedListCollapsibleView items={helpItems} />
+          <ScrollView>
+            <List.Section>
+              {helpItems.map((e, i) => {
+                return (
+                  <List.Accordion
+                    title={e.name}
+                    left={(props) => {
+                      return (
+                        <View
+                          style={{
+                            width: windowWidth / 14,
+                            height: windowWidth / 14,
+                            backgroundColor: Theme.secondary,
+                            borderRadius: windowWidth / 28,
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Text
+                            style={{
+                              color: Theme.primary,
+                              fontSize: windowWidth / 23,
+                              fontFamily: Theme.fonts.Nunito_600SemiBold,
+                              textAlign: "center",
+                            }}
+                          >
+                            {i}
+                          </Text>
+                        </View>
+                      );
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: Theme.colors.mainTextColor,
+                        fontSize: windowWidth / 30,
+                        fontFamily: Theme.fonts.Nunito_600SemiBold,
+                        textAlign: "left",
+                      }}
+                    >
+                      {e.detail}
+                    </Text>
+                  </List.Accordion>
+                );
+              })}
+            </List.Section>
+          </ScrollView>
+        </View>
+        <View>
+          <DefaultText
+            fontSize={windowWidth / 24}
+            onPress={() => {}}
+            value="Speak to an agent"
+            style={{
+              marginBottom: windowHeight / 100,
+            }}
+          />
+          <DefaultText
+            fontSize={windowWidth / 24}
+            value="Call support"
+            onPress={() => {}}
+          />
         </View>
       </View>
     </View>

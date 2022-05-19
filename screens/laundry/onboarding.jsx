@@ -6,6 +6,47 @@ import { Theme } from "../../theme";
 
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+
+const Drawer = createDrawerNavigator();
+
+// const slides = [
+//   {
+//     key: 1,
+//     title: "Title 1",
+//     text: "Description.\nSay something cool",
+//     image: require("./assets/1.jpg"),
+//     backgroundColor: "#59b2ab",
+//   },
+//   {
+//     key: 2,
+//     title: "Title 2",
+//     text: "Other cool stuff",
+//     image: require("./assets/2.jpg"),
+//     backgroundColor: "#febe29",
+//   },
+//   {
+//     key: 3,
+//     title: "Rocket guy",
+//     text: "I'm already out of descriptions\n\nLorem ipsum bla bla bla",
+//     image: require("./assets/3.jpg"),
+//     backgroundColor: "#22bcb5",
+//   },
+// ];
+
+// function LaundryOnboarding() {
+//   return (
+//     <Drawer.Navigator>
+//       <Drawer.Screen name="home" component={LaundryOnboarding} />
+//       <Drawer.Screen name="how" component={HowItWorks} />
+//       <Drawer.Screen name="drawerprofile" component={HowItWorks} />
+//       <Drawer.Screen name="drawershop" component={HowItWorks} />
+//       <Drawer.Screen name="support" component={HowItWorks} />
+//       <Drawer.Screen name="contactus" component={HowItWorks} />
+//     </Drawer.Navigator>
+//   );
+// }
+
 export default function LaundryOnboarding() {
   const navigation = useNavigation();
   return (

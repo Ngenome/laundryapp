@@ -10,7 +10,6 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  TouchableOpacity,
   View,
   ScrollView,
   Modal,
@@ -21,16 +20,19 @@ import { LinearGradient } from "expo-linear-gradient";
 
 import { Theme } from "../theme";
 import AppLoading from "expo-app-loading";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import { BButton, FButton, IconInput } from "../components";
 import { styles, windowHeight, windowWidth } from "../styles";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import WashingMachine from "../assets/washing-machine.svg";
-import { useDispatch } from "react-redux";
-import { changeScreen } from "../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { ADDLAUNDRYITEM, addService, changeScreen } from "../redux/actions";
 import { Entypo } from "@expo/vector-icons";
 import { SearchBar } from "react-native-screens";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import DropDownPicker from "react-native-dropdown-picker";
+import { POD } from "../helper_functions";
 const Stack = createStackNavigator();
 const OrderCardy = () => {
   return (
@@ -114,12 +116,139 @@ const OrderCardy = () => {
     </View>
   );
 };
+
+const LaundryItems = [
+  {
+    name: "shirt",
+    cost: 22.44,
+    id: "1",
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvbjA2UwhoXfZFCfq96bJlD8r_MqhoZPobdw&usqp=CAU",
+  },
+  {
+    name: "dress",
+    cost: 22.44,
+    id: "2",
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvbjA2UwhoXfZFCfq96bJlD8r_MqhoZPobdw&usqp=CAU",
+  },
+  {
+    name: "coat",
+    cost: 22.44,
+    id: "3",
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvbjA2UwhoXfZFCfq96bJlD8r_MqhoZPobdw&usqp=CAU",
+  },
+  {
+    name: "t-shirt",
+    cost: 22.44,
+    id: "7",
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvbjA2UwhoXfZFCfq96bJlD8r_MqhoZPobdw&usqp=CAU",
+  },
+  {
+    name: "sweater",
+    cost: 22.44,
+    id: "4",
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvbjA2UwhoXfZFCfq96bJlD8r_MqhoZPobdw&usqp=CAU",
+  },
+  {
+    name: "trousers",
+    cost: 22.44,
+    id: "6",
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvbjA2UwhoXfZFCfq96bJlD8r_MqhoZPobdw&usqp=CAU",
+  },
+  {
+    name: "Skirt",
+    cost: 22.44,
+    id: "5",
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvbjA2UwhoXfZFCfq96bJlD8r_MqhoZPobdw&usqp=CAU",
+  },
+];
 export function Orderdetail() {
-  const [totalItems, setTotalItems] = useState([]);
+  const [totalItems, setTotalItems] = useState(0);
+  const [amount, setAmount] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const [cartData, setCartData] = useState({});
+  const [data, setData] = useState(cartData);
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  // const [items, setItems] = useState([
+  //   { label: "Apple", value: "apple" },
+  //   { label: "Banana", value: "banana" },
+  // ]);
+  const [amnts, setAmnts] = useState({});
   const route = useRoute();
+  const laundryServices = useSelector((state) => state.laundryServices);
+  function InitialValue() {
+    var x = { ...amnts };
+    if (
+      route.params !== undefined &&
+      laundryServices[route.params.serviceName] !== undefined
+    ) {
+      console.log("route.params");
+      console.log(route.params);
+      if (laundryServices[route.params.serviceName]) {
+        setCartData(laundryServices[route.params.name]);
+        if (laundryServices[route.params.serviceName][e.name]) {
+          x[laundryServices[route.params.serviceName][e.name]] =
+            laundryServices[route.params.serviceName][e.name].items;
+          setAmnts(x);
+
+          // setAmount(23);
+        } else {
+          laundryServices[route.params.serviceName][e.name] = {
+            items: 0,
+            total: 0,
+          };
+          console.log(laundryServices[route.params.serviceName]);
+
+          x[laundryServices[route.params.serviceName][e.name]] = 0;
+          setAmnts(x);
+        }
+      } else {
+        laundryServices[route.params.serviceName] = {};
+        x[laundryServices[route.params.serviceName][e.name]] = 0;
+        setAmnts(x);
+      }
+      setCartData({});
+    }
+  }
+  InitialValue();
+  // function InitialValue() {
+  //   if (laundryServices[route.params.name]) {
+  //     setCartData(laundryServices[route.params.name]);
+  //   } else {
+  //     setCartData({});
+  //   }
+  // }
+
+  // useFocusEffect(() => {
+  //   setCartData({});
+  // });
+
+  function CalculateTotal() {
+    var tmpTotal = 0;
+    var tmpItems = 0;
+    Object.keys(cartData).forEach((e) => {
+      tmpTotal += cartData[e].total;
+      tmpItems += cartData[e].items;
+    });
+    setAmount(tmpTotal);
+    setTotalItems(tmpItems);
+    console.log(cartData);
+  }
+
+  useEffect(() => {
+    CalculateTotal();
+    console.log(laundryServices);
+    console.log("froma laundry service");
+  }, [cartData]);
   useFocusEffect(() => {
     dispatch(changeScreen("Order Detail"));
   });
@@ -131,16 +260,6 @@ export function Orderdetail() {
         flex: 1,
       }}
     >
-      <Text
-        style={{
-          fontFamily: Theme.fonts.nunito,
-          color: Theme.darkText,
-          fontSize: windowWidth / 27,
-          textAlign: "left",
-        }}
-      >
-        Service Type
-      </Text>
       <View
         style={{
           backgroundColor: "white",
@@ -154,6 +273,16 @@ export function Orderdetail() {
           justifyContent: "space-between",
         }}
       >
+        {/* <Text
+          style={{
+            fontFamily: Theme.fonts.nunito,
+            color: Theme.darkText,
+            fontSize: windowWidth / 27,
+            textAlign: "left",
+          }}
+        >
+          Service Type
+        </Text> */}
         <View
           style={{
             backgroundColor: Theme.primary,
@@ -196,6 +325,31 @@ export function Orderdetail() {
           </Text>
           <Entypo name="chevron-right" color={Theme.darkText} size={34} />
         </View>
+        {/* <DropDownPicker
+          open={open}
+          value={value}
+          items={items}
+          setOpen={setOpen}
+          setValue={setValue}
+          setItems={setItems}
+          containerStyle={{
+            width: windowWidth / 2.3,
+            zIndex: 3,
+            position: "relative",
+          }}
+          style={{
+            backgroundColor: "white",
+          }}
+          textStyle={{
+            fontSize: 12,
+            color: Theme.secondary,
+          }}
+          searchContainerStyle={
+            {
+              // borderBottomColor: "#dfdfdf",
+            }
+          }
+        /> */}
       </View>
       <View
         style={{
@@ -246,9 +400,7 @@ export function Orderdetail() {
                   backgroundColor: Theme.primaryBG,
                   borderRadius: windowHeight / 40,
                 }}
-              >
-                <SearchBar></SearchBar>
-              </View>
+              ></View>
             </View>
           </Modal>
           <ScrollView
@@ -258,10 +410,20 @@ export function Orderdetail() {
               flexGrow: 1,
             }}
           >
-            <TallyCard
-              name="shirt"
-              imageURI="https://dictionary.cambridge.org/fr/images/thumb/shirt_noun_002_33400.jpg?version=5.0.225"
-            />
+            {LaundryItems.map((e, i) => {
+              return (
+                <TallyCard
+                  name={e.name}
+                  route={route}
+                  inital={amnts}
+                  key={e.id}
+                  cost={e.cost}
+                  cartData={cartData}
+                  setCartData={setCartData}
+                  imageURI={e.image}
+                />
+              );
+            })}
           </ScrollView>
         </View>
       </View>
@@ -284,7 +446,7 @@ export function Orderdetail() {
               textAlign: "left",
             }}
           >
-            8 items
+            {totalItems} items
           </Text>
           <Text
             style={{
@@ -294,12 +456,19 @@ export function Orderdetail() {
               textAlign: "left",
             }}
           >
-            $80
+            ${amount.toFixed(3)}
           </Text>
         </View>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("summary");
+            dispatch(
+              addService({
+                service: route.params.serviceName,
+                value: cartData,
+              })
+            );
+            InitialValue();
           }}
         >
           <View
@@ -331,7 +500,55 @@ export function Orderdetail() {
 }
 
 function TallyCard(props) {
+  const route = props.route;
+  const laundryServices = useSelector((state) => state.laundryServices);
+  // const initial
+  // laundryServices?.[route.params.serviceName]?.[props.name].items !==
+  // (undefined || null)
+  //   ? laundryServices[route.params.serviceName][props.name].items
+  //   : 0;
+  // useFocusEffect(() => {
+  //   console.log(
+  //     laundryServices[route.params.serviceName][props.name].items ||
+  //       "nothing" + " from tally"
+  //   );
+  // });
   const [amount, setAmount] = useState(0);
+  // function InitialValue() {
+  //   if (laundryServices[route.params.serviceName]) {
+  //     if (laundryServices[route.params.serviceName][props.name]) {
+  //       setAmount(laundryServices[route.params.serviceName][props.name].items);
+  //       // setAmount(23);
+  //     } else {
+  //       laundryServices[route.params.serviceName][props.name];
+  //       console.log(laundryServices[route.params.serviceName]);
+  //       setAmount(0);
+  //     }
+  //   } else {
+  //     laundryServices[route.params.serviceName] = {};
+  //     setAmount(0);
+  //   }
+  // }
+
+  var cartData = { ...props.cartData };
+  // // useFocusEffect(
+  // //   useCallback(() => {
+  // //     InitialValue();
+  // //   }, [])
+  // //   // return () => {};
+  // // );
+  useEffect(() => {
+    setAmount(props.inital[props.name] ?? 0);
+  }, []);
+  useEffect(() => {
+    console.log("the " + props.name + "total is" + amount * props.cost);
+    cartData[props.name] = {
+      items: amount,
+      total: amount * props.cost,
+    };
+    props.setCartData(cartData);
+  }, [amount]);
+
   return (
     <View
       style={{
@@ -417,3 +634,33 @@ function TallyCard(props) {
     </View>
   );
 }
+
+// export const SearchBar = (props) => {
+//   return (
+//     <View
+//       style={{
+//         flexDirection: "row",
+//         justifyContent: "space-between",
+//       }}
+//     >
+//       <TextInput
+//         placeholder="Search anything here"
+//         onChangeText={(text) => {
+//           props.setSearchText(text);
+//         }}
+//       />
+//       <TouchableOpacity
+//         style={{
+//           padding: windowWidth / 80,
+//         }}
+//         onPress={props.onSearch}
+//       >
+//         <FontAwesome
+//           name="search"
+//           color={Theme.icons.secondary}
+//           size={windowHeight / 30}
+//         />
+//       </TouchableOpacity>
+//     </View>
+//   );
+// };
