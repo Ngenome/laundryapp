@@ -69,7 +69,7 @@ export default function Carousel() {
                 }}
               >
                 <Image
-                  source={require("../assets/laundry/washing-machine-main.png")}
+                  source={require(" ../../assets/laundry/washing-machine-main.png")}
                   style={{
                     height: windowHeight / 6,
                     width: windowHeight / 6,

@@ -1,18 +1,29 @@
 import React from "react";
-import { AntDesign, Entypo, Ionicons } from "@expo/vector-icons";
+import {
+  AntDesign,
+  Entypo,
+  Ionicons,
+  MaterialCommunityIcons,
+  MaterialIcons,
+} from "@expo/vector-icons";
 import { View, Text } from "react-native";
 import MapView, { Callout, Marker } from "react-native-maps";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { windowHeight, windowWidth } from "../../styles";
 import { Theme } from "../../theme";
+import appearance from "../constants/appearance";
+import colors from "../../theme/colors";
+import FromToLocationView from "../../components/courier/tracker";
 
 export default function CourierDetails() {
   return (
     <SafeAreaView
       style={{
         flex: 1,
+        alignItems: "center",
       }}
     >
+      <FromToLocationView />
       <MapView
         initialRegion={{
           latitude: 37.78825,
@@ -22,38 +33,10 @@ export default function CourierDetails() {
         }}
         style={{
           height: windowHeight / 3,
-          width: windowWidth / 1.4,
+          width: windowWidth / 1,
           borderRadius: windowWidth / 20,
         }}
       >
-        <View
-          style={{
-            height: windowHeight / 10,
-            flexDirection: "row",
-          }}
-        >
-          <View>
-            <AntDesign name="caretdown" size={24} color={Theme.secondary} />
-            <Entypo name="dots-three-vertical" color={Theme.secondary} />
-            <Ionicons name="location" color={Theme.secondary} />
-          </View>
-          <View
-            style={{
-              width: windowWidth / 1.4,
-              flexDirection: "row",
-            }}
-          >
-            <Text
-              style={{
-                fontFamily: Theme.fonts.Nunito_600SemiBold,
-                color: Theme.secondary,
-                fontSize: Theme.sizes.mdText,
-              }}
-            >
-              Nairobi CBD
-            </Text>
-          </View>
-        </View>
         <Marker
           style={{
             height: windowHeight / 3,
@@ -78,6 +61,7 @@ export default function CourierDetails() {
       </MapView>
       <View
         style={{
+          marginTop: windowHeight / 20,
           flexDirection: "row",
           justifyContent: "space-between",
           width: windowWidth / 1.2,
@@ -87,7 +71,7 @@ export default function CourierDetails() {
           <Text
             style={{
               fontFamily: Theme.fonts.Nunito_600SemiBold,
-              color: Theme.secondary,
+              color: colors[appearance].text,
               fontSize: Theme.sizes.mdText,
             }}
           >
@@ -105,15 +89,17 @@ export default function CourierDetails() {
         </View>
         <View
           style={{
-            backgroundColor: "red",
+            backgroundColor: colors[appearance].viewBackground,
             width: windowWidth / 6,
             height: windowHeight / 20,
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
           <Text
             style={{
               fontFamily: Theme.fonts.Nunito_700Bold,
-              color: Theme.secondary,
+              color: colors[appearance].danger,
               fontSize: Theme.sizes.mdText + 1,
             }}
           >
@@ -121,11 +107,42 @@ export default function CourierDetails() {
           </Text>
         </View>
       </View>
-      <View>
+      <View
+        style={{
+          width: windowWidth / 1.2,
+          marginTop: windowHeight / 30,
+        }}
+      >
         <CourierTimeTracker
+          initial={true}
           location="Nairobi CBD"
           date="18 May 2022"
           time="10:32"
+          icon={
+            <AntDesign
+              name="caretdown"
+              size={24}
+              color={Theme.icons.tertiary}
+            />
+          }
+        />
+        <CourierTimeTracker
+          location="Allsopps"
+          date="18 May 2022"
+          time="10:52"
+          icon={
+            <AntDesign
+              name="caretdown"
+              size={24}
+              color={Theme.icons.tertiary}
+            />
+          }
+        />
+        <CourierTimeTracker
+          final={true}
+          location="TRM Drive"
+          date="18 May 2022"
+          time="11:02"
           icon={
             <AntDesign
               name="caretdown"
@@ -140,13 +157,36 @@ export default function CourierDetails() {
 }
 const CourierTimeTracker = (props) => {
   return (
-    <View>
-      {props.icon}
-      <View>
+    <View
+      style={{
+        marginBottom: windowHeight / 20,
+        flexDirection: props.initial || props.final ? "row" : "row",
+      }}
+    >
+      {props.initial ? (
+        <AntDesign name="caretdown" size={windowWidth / 15} color={"orange"} />
+      ) : props.final ? (
+        <MaterialIcons
+          name="location-pin"
+          color={colors[appearance].tint}
+          size={windowWidth / 15}
+        />
+      ) : (
+        <MaterialCommunityIcons
+          name="dots-vertical"
+          color={"orange"}
+          size={windowWidth / 15}
+        />
+      )}
+      <View
+        style={{
+          flexDirection: "column",
+        }}
+      >
         <Text
           style={{
             fontFamily: Theme.fonts.Nunito_700Bold,
-            color: Theme.darkText,
+            color: colors[appearance].text,
             fontSize: Theme.sizes.mdText + 1,
           }}
         >
@@ -154,15 +194,17 @@ const CourierTimeTracker = (props) => {
         </Text>
         <View
           style={{
+            width: windowWidth / 1.3,
             flexDirection: "row",
+
             justifyContent: "space-between",
           }}
         >
           <Text
             style={{
               fontFamily: Theme.fonts.Nunito_700Bold,
-              color: Theme.darkText,
-              fontSize: Theme.sizes.mdText + 1,
+              color: colors[appearance].tint,
+              fontSize: Theme.sizes.mdText - 1,
             }}
           >
             {props.date}
@@ -174,7 +216,7 @@ const CourierTimeTracker = (props) => {
               fontSize: Theme.sizes.mdText + 1,
             }}
           >
-            {props.time}
+            {props.time} {"AM"}
           </Text>
         </View>
       </View>

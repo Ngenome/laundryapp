@@ -1,0 +1,27 @@
+<svg width="236" height="236" viewBox="0 0 236 236" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_d_1_210)">
+<rect x="50" y="34" width="120" height="120" rx="30" fill="white"/>
+</g>
+<circle cx="110" cy="94" r="40" fill="#E5F3F8"/>
+<rect x="87.1424" y="109.584" width="45.7143" height="7.27284" rx="3.63642" fill="white" stroke="#2A9DDD"/>
+<rect x="-0.405953" y="0.578651" width="11.383" height="3.96502" rx="1.64286" transform="matrix(0.173121 0.984901 -0.985027 0.172401 124.212 82.6826)" fill="white" stroke="#2A9DDD"/>
+<rect x="105.843" y="81.5321" width="21.1039" height="4.8702" rx="2.4351" fill="white" stroke="#2A9DDD"/>
+<path d="M92.6956 96.6756C93.7072 93.8262 96.4033 91.9225 99.4269 91.9225H126.72C128.186 91.9225 129.415 93.0324 129.563 94.4913L130.512 103.847C130.654 105.25 129.553 106.468 128.143 106.468H91.2421C90.2554 106.468 89.5657 105.492 89.8959 104.562L92.6956 96.6756Z" fill="white" stroke="#2A9DDD"/>
+<ellipse cx="107.467" cy="98.7409" rx="1.62338" ry="1.6234" fill="#2A9DDD"/>
+<ellipse cx="113.961" cy="98.7409" rx="1.62338" ry="1.6234" fill="#2A9DDD"/>
+<ellipse cx="120.454" cy="98.7409" rx="1.62338" ry="1.6234" fill="#2A9DDD"/>
+<path d="M103.222 85.688C103.222 87.7096 101.592 89.3439 99.5878 89.3439C97.5832 89.3439 95.9538 87.7096 95.9538 85.688C95.9538 83.6664 97.5832 82.0321 99.5878 82.0321C101.592 82.0321 103.222 83.6664 103.222 85.688Z" fill="#E5F3F8" stroke="#2A9DDD"/>
+<path d="M96.9783 76.3376C96.9783 78.9331 94.8861 81.0325 92.3108 81.0325C89.7355 81.0325 87.6433 78.9331 87.6433 76.3376C87.6433 73.7422 89.7355 71.6428 92.3108 71.6428C94.8861 71.6428 96.9783 73.7422 96.9783 76.3376Z" fill="#E5F3F8" stroke="#2A9DDD"/>
+<defs>
+<filter id="filter0_d_1_210" x="0" y="0" width="236" height="236" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feMorphology radius="10" operator="dilate" in="SourceAlpha" result="effect1_dropShadow_1_210"/>
+<feOffset dx="8" dy="24"/>
+<feGaussianBlur stdDeviation="24"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.0325521 0 0 0 0 0.0785615 0 0 0 0 0.104167 0 0 0 0.05 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1_210"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1_210" result="shape"/>
+</filter>
+</defs>
+</svg>

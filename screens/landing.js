@@ -1,15 +1,18 @@
 import { Entypo, Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
+import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import { Text, View, SafeAreaView, Image, ImageBackground } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { useSharedValue } from "react-native-reanimated";
 import { useSelector } from "react-redux";
 import { BButton } from "../components";
 import { styles, windowHeight, windowWidth } from "../styles";
 import { Theme } from "../theme";
-
+import LandingIllusration from "../assets/landing-illustration.svg";
 export default function LandingScreen() {
+  const sharedVal = useSharedValue(0);
   const auth = useSelector((state) => state.auth);
   const navigation = useNavigation();
   return (
@@ -21,16 +24,7 @@ export default function LandingScreen() {
         alignItems: "center",
       }}
     >
-      <LinearGradient
-        colors={Theme.gradientColors}
-        style={{
-          flex: 1,
-          width: windowWidth,
-          justifyContent: "center",
-          alignContent: "center",
-          alignItems: "center",
-        }}
-      >
+      <View>
         <View
           style={{
             height: windowHeight / 1.2,
@@ -61,29 +55,34 @@ export default function LandingScreen() {
             </TouchableOpacity>
             <View></View>
           </View>
-          <Text
-            style={[
-              styles.lgText,
-              {
-                color: Theme.primary,
-              },
-            ]}
+          <View
+            style={{
+              flexDirection: "row",
+            }}
           >
-            Welcome to Ribrad
-          </Text>
-          <View style={{}}>
-            <Image
-              source={
-                require("../assets/laundry/landing.png")
-                //   {
-                //   uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6wWai_dfyM_Z_PC1zLAeXHnff_24ZfJY9XA&usqp=CAU",
-                // }
-              }
-              style={{
-                height: windowHeight / 2,
-                resizeMode: "contain",
-              }}
-            />
+            <Text
+              style={[
+                styles.lgText,
+                {
+                  color: Theme.primary,
+                },
+              ]}
+            >
+              Welcome to{" "}
+            </Text>
+            <Text
+              style={[
+                styles.lgText,
+                {
+                  color: Theme.secondary,
+                },
+              ]}
+            >
+              Ribrad
+            </Text>
+          </View>
+          <View style={{ width: windowWidth, marginBottom: windowHeight / 15 }}>
+            <LandingIllusration width={windowWidth} height={windowHeight / 3} />
           </View>
           <Text
             style={[
@@ -124,7 +123,7 @@ export default function LandingScreen() {
               }}
               title="LAUNDRY"
               bg
-              bgColor={Theme.secondary}
+              bgColor={Theme.primary}
               family={Theme.fonts.Nunito_700Bold}
             />
             <BButton
@@ -133,7 +132,7 @@ export default function LandingScreen() {
               }}
               title="SHOP"
               bg
-              bgColor={Theme.secondary}
+              bgColor={Theme.primary}
               family={Theme.fonts.Nunito_700Bold}
             />
             {auth.loggedIn === false ? (
@@ -143,7 +142,7 @@ export default function LandingScreen() {
                 }}
                 title="SIGN UP / LOGIN"
                 bg
-                bgColor={Theme.secondary}
+                bgColor={Theme.primary}
                 family={Theme.fonts.Nunito_700Bold}
               />
             ) : (
@@ -151,7 +150,8 @@ export default function LandingScreen() {
             )}
           </View>
         </View>
-      </LinearGradient>
+      </View>
+      <StatusBar style="dark" />
     </SafeAreaView>
   );
 }

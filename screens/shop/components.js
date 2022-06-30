@@ -74,91 +74,117 @@ export const ProductCard = (props) => {
           sizes: props.sizes,
         });
       }}
+      style={
+        {
+          // padding: props.w / 10,
+        }
+      }
     >
       <View
         style={{
-          height: props.h,
-          width: props.w,
+          height: props.h + 3,
+          width: props.w + 3,
           marginHorizontal: props.w / 20,
           justifyContent: "center",
           alignContent: "center",
           alignItems: "center",
-          backgroundColor: Theme.defaultBG,
+          backgroundColor: Theme.primary,
+          borderRadius: windowWidth / 40,
           padding: props.w / 10,
+          borderColor: Theme.tertiary,
+          borderWidth: 2,
+          overflow: "hidden",
         }}
       >
         <View style={{}}>
           <Image
             source={{
-              uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdNRewAt-cxIhCs6GKXdAz5zbWWRhmk7CTHg&usqp=CAU",
+              uri:
+                props.images?.[0].uri ??
+                "https://peacehumanity.org/wp-content/uploads/2021/10/placeholder-237.png",
             }}
             style={{
-              height: props.h / 1.3,
+              height: props.h / 1.5,
               resizeMode: "contain",
-              width: props.w / 1.3,
+              width: props.w / 1.5,
             }}
           />
         </View>
         <View
           style={{
-            flexDirection: "row",
+            flexDirection: "column",
             justifyContent: "space-between",
             width: props.w - 2,
           }}
         >
-          <View>
-            <Text
-              style={{
-                fontFamily: Theme.fonts.Nunito_600SemiBold,
-                color: Theme.mdDark,
-                fontSize: props.w / 9,
-
-                textAlign: "center",
-              }}
-            >
-              {props.name}
-            </Text>
-            <Text
-              style={{
-                fontFamily: Theme.fonts.Nunito_600SemiBold,
-                color: Theme.mdDark,
-                fontSize: props.w / 10,
-
-                textAlign: "center",
-              }}
-            >
-              {props.sign} {props.cost}
-            </Text>
+          <View
+            style={{
+              width: props.w / 1.3,
+              // backgroundColor: "red",
+            }}
+          >
+            <View>
+              <Text
+                over
+                adjustsFontSizeToFit={true}
+                numberOfLines={1}
+                style={{
+                  fontFamily: Theme.fonts.Nunito_600SemiBold,
+                  color: Theme.mdDark,
+                  // fontSize: props.w / 9,
+                }}
+              >
+                {props.name}
+              </Text>
+            </View>
           </View>
           <View
             style={{
               flexDirection: "row",
+              justifyContent: "space-between",
             }}
           >
-            <Entypo
-              name="star"
-              size={props.h / 10}
-              color={
-                props.stars > 5
-                  ? "#eaf200"
-                    ? props.stars > 1
-                    : "#eaf200"
-                    ? props.stars > 50
-                    : "red"
-                  : "#eaf200"
-              }
-            />
-            <Text
+            <View>
+              <Text
+                style={{
+                  fontFamily: Theme.fonts.Nunito_600SemiBold,
+                  color: Theme.mdDark,
+                  fontSize: props.w / 10,
+                }}
+              >
+                {props.sign} {props.cost}
+              </Text>
+            </View>
+            <View
               style={{
-                fontFamily: Theme.fonts.Nunito_600SemiBold,
-                color: Theme.mdDark,
-                fontSize: props.h / 10,
-
-                textAlign: "center",
+                flexDirection: "row",
               }}
             >
-              ({props.stars})
-            </Text>
+              <Entypo
+                name="star"
+                size={props.h / 10}
+                color={
+                  props.stars > 5
+                    ? "#eaf200"
+                      ? props.stars > 1
+                      : "#eaf200"
+                      ? props.stars > 50
+                      : "red"
+                    : "#eaf200"
+                }
+              />
+              <Text
+                style={{
+                  fontFamily: Theme.fonts.Nunito_600SemiBold,
+                  color: Theme.mdDark,
+                  fontSize: props.h / 10,
+
+                  textAlign: "center",
+                }}
+              >
+                ({props.stars})
+              </Text>
+            </View>
           </View>
         </View>
       </View>

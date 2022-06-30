@@ -1,13 +1,15 @@
 import { StyleSheet } from "react-native";
 import { Dimensions } from "react-native";
+import appearance from "./screens/constants/appearance";
 export const windowWidth = Dimensions.get("window").width;
 export const windowHeight = Dimensions.get("window").height;
 import { Theme } from "./theme";
+import colors from "./theme/colors";
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Theme.defaultBG,
+    backgroundColor: Theme.backgrounds.primaryBG,
   },
   splitGradient: {},
   checkbox: {
@@ -43,14 +45,14 @@ export const styles = StyleSheet.create({
     fontSize: Theme.sizes.lgText,
   },
   mdText: {
-    fontFamily: Theme.fonts.primaryFont,
+    fontFamily: Theme.fonts.Nunito_600SemiBold,
 
     fontSize: Theme.sizes.mdText + 3,
   },
   smText: {
     fontFamily: Theme.fonts.Nunito_700Bold,
-    color: Theme.primary,
-    fontSize: Theme.sizes.mdText + 2,
+    color: colors[appearance].foreground,
+    fontSize: Theme.sizes.mdText,
   },
   flexRow: {
     flexDirection: "row",
@@ -65,7 +67,6 @@ export const styles = StyleSheet.create({
   },
 });
 
-export const CustomBorder=()=>{
-  return( border)
- 
-}   
+export const CustomBorder = () => {
+  return border;
+};

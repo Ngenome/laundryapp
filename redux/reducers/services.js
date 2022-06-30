@@ -7,6 +7,8 @@ export const ServicesReducer = (state = {}, action) => {
       var new_state = { ...state };
       new_state[action.payload.service] = action.payload.value;
       return new_state;
+    case "REPLACESERVICES":
+      return action.payload;
     default:
       return state;
   }

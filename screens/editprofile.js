@@ -32,7 +32,7 @@ import {
 import { styles, windowHeight, windowWidth } from "../styles";
 
 import { createStackNavigator } from "@react-navigation/stack";
-import WashingMachine from "../assets/washing-machine.svg";
+
 import { useDispatch } from "react-redux";
 import { changeScreen } from "../redux/actions";
 import {

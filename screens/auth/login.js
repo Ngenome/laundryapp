@@ -65,10 +65,10 @@ export default function LoginScreen() {
     if (response?.type === "success") {
       setAccessToken(response.authentication.accessToken);
       console.log("successful google login");
-      navigation.navigate(nextScreen);
+      // navigation.navigate(nextScreen);
     } else {
       console.log(response?.type);
-      navigation.navigate(nextScreen);
+      // navigation.navigate(nextScreen);
     }
   }, [response]);
 
@@ -138,10 +138,7 @@ export default function LoginScreen() {
       ]}
     >
       <AuthSuccess />
-      <LinearGradient
-        colors={Theme.gradientColors}
-        style={styles.splitGradient}
-      >
+      <View colors={Theme.gradientColors} style={styles.splitGradient}>
         <View
           style={{
             alignContent: "center",
@@ -164,7 +161,8 @@ export default function LoginScreen() {
             <FButton
               title="LOGIN"
               bg
-              bgColor={Theme.tertiary}
+              color={Theme.foregroundOnColoredViews}
+              bgColor={Theme.secondary}
               family={Theme.fonts.Nunito_600SemiBold}
               fontSize={windowWidth / 24}
             />
@@ -178,7 +176,7 @@ export default function LoginScreen() {
             />
           </View>
         </View>
-      </LinearGradient>
+      </View>
 
       <View
         style={{
@@ -226,7 +224,7 @@ export default function LoginScreen() {
             <TouchableOpacity style={{}}>
               <Text
                 style={{
-                  color: Theme.tertiary,
+                  color: Theme.secondary,
                   alignSelf: "flex-end",
                   fontFamily: Theme.fonts.nunito,
                   fontSize: 12,
@@ -295,8 +293,9 @@ export default function LoginScreen() {
           title="LOGIN"
           fontSize={17}
           bg
+          color={Theme.foregroundOnColoredViews}
           family={Theme.fonts.Nunito_600SemiBold}
-          bgColor={Theme.tertiary}
+          bgColor={Theme.secondary}
         />
       </View>
       <View
@@ -365,7 +364,7 @@ export default function LoginScreen() {
         >
           <Text
             style={{
-              color: Theme.tertiary,
+              color: Theme.secondary,
               marginLeft: 2,
               marginBottom: 30,
 

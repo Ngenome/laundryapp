@@ -35,7 +35,25 @@ const orders = [
       "https://dictionary.cambridge.org/fr/images/thumb/shirt_noun_002_33400.jpg?version=5.0.225",
   },
   {
-    name: "Plain Shirt",
+    name: "Bow tie",
+    delivered: true,
+    cost: 11.22,
+    sign: "$",
+    order_date: "2/4/2022 11:30 am",
+    image:
+      "https://www.ubuy.ke/productimg/?image=aHR0cHM6Ly9tLm1lZGlhLWFtYXpvbi5jb20vaW1hZ2VzL0kvNzFhWmdrMWUwMUwuX0FDX1VMMTUwMF8uanBn.jpg",
+  },
+  {
+    name: "Suit",
+    delivered: true,
+    cost: 11.22,
+    sign: "$",
+    order_date: "2/4/2022 11:30 am",
+    image:
+      "https://image.menswearhouse.com/is/image/TMW/MW40_3UUY_16_JOE_JOSEPH_ABBOUD_LIGHT_GRAY_SOLID_SET?wid=1200&hei=627",
+  },
+  {
+    name: "Tie",
     delivered: true,
     cost: 11.22,
     sign: "$",
@@ -44,40 +62,21 @@ const orders = [
       "https://dictionary.cambridge.org/fr/images/thumb/shirt_noun_002_33400.jpg?version=5.0.225",
   },
   {
-    name: "Plain Shirt",
+    name: "Socks",
     delivered: true,
     cost: 11.22,
     sign: "$",
     order_date: "2/4/2022 11:30 am",
-    image:
-      "https://dictionary.cambridge.org/fr/images/thumb/shirt_noun_002_33400.jpg?version=5.0.225",
+    image: "https://m.media-amazon.com/images/I/61NHPF-po2L._AC_UX385_.jpg",
   },
   {
-    name: "Plain Shirt",
+    name: "Trousers",
     delivered: true,
     cost: 11.22,
     sign: "$",
     order_date: "2/4/2022 11:30 am",
     image:
-      "https://dictionary.cambridge.org/fr/images/thumb/shirt_noun_002_33400.jpg?version=5.0.225",
-  },
-  {
-    name: "Plain Shirt",
-    delivered: true,
-    cost: 11.22,
-    sign: "$",
-    order_date: "2/4/2022 11:30 am",
-    image:
-      "https://dictionary.cambridge.org/fr/images/thumb/shirt_noun_002_33400.jpg?version=5.0.225",
-  },
-  {
-    name: "Plain Shirt",
-    delivered: true,
-    cost: 11.22,
-    sign: "$",
-    order_date: "2/4/2022 11:30 am",
-    image:
-      "https://dictionary.cambridge.org/fr/images/thumb/shirt_noun_002_33400.jpg?version=5.0.225",
+      "https://image.uniqlo.com/UQ/ST3/WesternCommon/imagesgoods/425138/item/goods_05_425138.jpg?width=450&impolicy=quality_70",
   },
   {
     name: "Plain Shirt",

@@ -87,21 +87,46 @@ export function ShopCart() {
       >
         <View
           style={{
-            height: windowHeight / 1.6,
+            height: windowHeight / 2,
+            width: windowWidth / 1.2,
           }}
         >
-          <FlatList
-            data={cart}
-            onRefresh={() => {
-              setTimeout(() => {
-                setRefreshing(false);
-              }, 1000);
-              console.log("refreshed");
-            }}
-            refreshing={refreshing}
-            renderItem={renderProduct}
-            keyExtractor={(product) => product.id}
-          />
+          {cart.length == 0 ? (
+            <>
+              <Text
+                style={{
+                  fontFamily: Theme.fonts.Nunito_600SemiBold,
+                  color: Theme.mdDark,
+                  fontSize: windowWidth / 25,
+
+                  textAlign: "center",
+                }}
+              >
+                Sorry your cart is empty
+              </Text>
+              <Image
+                source={require("../../assets/empty-box.png")}
+                style={{
+                  width: windowWidth / 1,
+                  height: windowHeight / 3,
+                  resizeMode: "contain",
+                }}
+              />
+            </>
+          ) : (
+            <FlatList
+              data={cart}
+              onRefresh={() => {
+                setTimeout(() => {
+                  setRefreshing(false);
+                }, 1000);
+                console.log("refreshed");
+              }}
+              refreshing={refreshing}
+              renderItem={renderProduct}
+              keyExtractor={(product) => product.id}
+            />
+          )}
         </View>
       </View>
       <View

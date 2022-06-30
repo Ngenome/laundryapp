@@ -55,7 +55,10 @@ export const addService = (task) => ({
   type: "ADDSERVICE",
   payload: task,
 });
-
+export const replaceServices = (task) => ({
+  type: "REPLACESERVICES",
+  payload: task,
+});
 export const updateOrderScreen = (task) => ({
   type: "UPDATEORDERSCREEN",
   payload: task,

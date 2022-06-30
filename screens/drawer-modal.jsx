@@ -16,12 +16,15 @@ export function DrawerModalScreen({ navigation }) {
   const dispatch = useDispatch();
   const activeScreen = useSelector((state) => state.drawerScreen);
   const auth = useSelector((state) => state.auth);
+  function colorResolver(i) {
+    return activeScreen == i ? Theme.secondary : Theme.primary;
+  }
   return (
-    <View style={{ flex: 1, backgroundColor: Theme.secondary }}>
+    <View style={{ flex: 1, backgroundColor: Theme.backgrounds.primaryBG }}>
       <View
         style={{
           width: DrawerWidth,
-          backgroundColor: Theme.backgrounds.darkBlue,
+          backgroundColor: Theme.backgrounds.primaryBG,
           flex: 1,
         }}
       >
@@ -63,9 +66,7 @@ export function DrawerModalScreen({ navigation }) {
               iconSize={IconSize}
               name="Home"
               width={DrawerWidth / 1.2}
-              iconColor={
-                activeScreen == "home" ? Theme.secondary : Theme.primary
-              }
+              iconColor={colorResolver("home")}
               onPress={() => {
                 dispatch(changeDrawerScreen("home"));
               }}
@@ -79,9 +80,7 @@ export function DrawerModalScreen({ navigation }) {
               iconSize={IconSize}
               name="Profile"
               width={DrawerWidth / 1.2}
-              iconColor={
-                activeScreen == "profile" ? Theme.secondary : Theme.primary
-              }
+              iconColor={colorResolver("profile")}
               onPress={() => {
                 dispatch(changeDrawerScreen("profile"));
               }}
@@ -95,9 +94,7 @@ export function DrawerModalScreen({ navigation }) {
               iconSize={IconSize}
               name="Shop"
               width={DrawerWidth / 1.2}
-              iconColor={
-                activeScreen == "shop" ? Theme.secondary : Theme.primary
-              }
+              iconColor={colorResolver("shop")}
               onPress={() => {
                 dispatch(changeDrawerScreen("shop"));
                 navigation.navigate("shop");
@@ -112,9 +109,7 @@ export function DrawerModalScreen({ navigation }) {
               iconSize={IconSize}
               name="Support"
               width={DrawerWidth / 1.2}
-              iconColor={
-                activeScreen == "support" ? Theme.secondary : Theme.primary
-              }
+              iconColor={colorResolver("support")}
               onPress={() => {
                 dispatch(changeDrawerScreen("support"));
                 navigation.navigate("help");
@@ -179,7 +174,7 @@ export function DrawerModalScreen({ navigation }) {
             </View>
           </View>
         </SafeAreaView>
-        <StatusBar style="light" />
+        <StatusBar style="dark" />
       </View>
     </View>
   );

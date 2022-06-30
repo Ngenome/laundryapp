@@ -7,9 +7,6 @@ import {
   View,
   Image,
 } from "react-native";
-import Checkbox from "expo-checkbox";
-
-import { LinearGradient } from "expo-linear-gradient";
 
 import { Theme } from "../theme";
 import AppLoading from "expo-app-loading";
@@ -27,6 +24,9 @@ import {
   Ionicons,
   MaterialIcons,
 } from "@expo/vector-icons";
+import colors from "../theme/colors";
+import appearance from "./constants/appearance";
+import StackCreator from "../components/stackCreator";
 
 const Stack = createStackNavigator();
 
@@ -36,13 +36,13 @@ export default function ProfileScreen() {
   const dispatch = useDispatch();
 
   useFocusEffect(() => {
-    dispatch(changeScreen("Profile"));
+    // navigation.setOptions({ title: "Profile" });
   });
   return (
     <View
       style={{
         flex: 1,
-        backgroundColor: "#ebebeb",
+        backgroundColor: Theme.backgrounds.primaryBG,
       }}
     >
       <View
@@ -51,7 +51,7 @@ export default function ProfileScreen() {
           width: windowWidth,
           position: "absolute",
           zIndex: -2,
-          backgroundColor: Theme.backgrounds.secondary,
+          backgroundColor: colors[appearance].viewBackground,
         }}
       >
         <View
@@ -126,7 +126,7 @@ export default function ProfileScreen() {
           style={{
             height: windowHeight / 4,
             width: windowWidth / 1.3,
-            backgroundColor: Theme.primary,
+            backgroundColor: Theme.backgrounds.primaryBG,
             borderRadius: windowWidth / 30,
             elevation: 20,
             alignContent: "center",
@@ -179,7 +179,7 @@ export default function ProfileScreen() {
         <View
           style={{
             height: windowHeight / 3,
-            marginTop: windowHeight / 40,
+            marginTop: windowHeight / 20,
             width: windowWidth / 1.3,
             backgroundColor: Theme.transparent,
             borderRadius: windowWidth / 30,
@@ -210,7 +210,7 @@ export default function ProfileScreen() {
             style={{
               height: windowHeight / 3.4,
               width: windowWidth / 1.3,
-              backgroundColor: Theme.primary,
+              backgroundColor: Theme.backgrounds.primaryBG,
               borderRadius: windowWidth / 30,
               marginTop: windowHeight / 60,
 
@@ -274,7 +274,7 @@ export default function ProfileScreen() {
             navigation.navigate("editprofile");
           }}
           style={{
-            marginTop: windowHeight / 40,
+            marginTop: windowHeight / 80,
           }}
         >
           <View
@@ -290,7 +290,7 @@ export default function ProfileScreen() {
           >
             <Text
               style={{
-                color: Theme.primary,
+                color: Theme.foregroundOnColoredViews,
                 fontSize: 16,
                 fontFamily: Theme.fonts.Nunito_600SemiBold,
               }}
@@ -300,6 +300,7 @@ export default function ProfileScreen() {
           </View>
         </TouchableOpacity>
       </View>
+      <StatusBar style="dark" />
     </View>
   );
 }
@@ -351,4 +352,8 @@ const ProfileChunkView = (props) => {
       </View>
     </View>
   );
+};
+
+export const ProfileStack = () => {
+  return <StackCreator name={"Profile"} component={ProfileScreen} />;
 };

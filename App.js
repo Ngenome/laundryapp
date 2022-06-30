@@ -1,3 +1,4 @@
+// import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import {
@@ -21,13 +22,10 @@ import { BButton, FButton, IconInput } from "./components";
 import { styles, windowHeight, windowWidth } from "./styles";
 
 import { createStackNavigator } from "@react-navigation/stack";
-// import MainSlide from "./src/screens/Slider";
 
-// import { useNavigation } from "@react-navigation/native";
-// import { Laundry } from "./screens/laundry";
 import LoginScreen from "./screens/auth/login";
 import SignUpScreen from "./screens/auth/signup";
-import HomeScreen from "./screens/home";
+
 import { Provider, useSelector } from "react-redux";
 import {
   useFonts,
@@ -37,15 +35,13 @@ import {
   Nunito_800ExtraBold,
   Nunito_900Black,
 } from "@expo-google-fonts/nunito";
-Poppins_400Regular;
 import { FredokaOne_400Regular } from "@expo-google-fonts/fredoka-one";
-import { Orderdetail } from "./screens/orderdetail";
-import { OrderSummary } from "./screens/summary";
+import { Orderdetail } from "./screens/laundry/orderdetail";
+import { OrderSummary } from "./screens/laundry/summary";
 import { Checkout } from "./screens/checkout";
 import { VarelaRound_400Regular } from "@expo-google-fonts/varela-round";
 import { Poppins_400Regular } from "@expo-google-fonts/poppins";
 import { EditAddress } from "./screens/editAddress";
-// import HistoryScreen, { OrderHistory } from "./screens/orderhistory";
 import EditProfileScreen from "./screens/editprofile";
 import LandingScreen from "./screens/landing";
 import ShopNavigator, { ShopHomeScreen } from "./screens/shop/home";
@@ -60,10 +56,15 @@ import LaundryOnboarding from "./screens/laundry/onboarding";
 import SubscriptionsScreen from "./screens/laundry/subscriptions";
 import HelpScreen from "./screens/help";
 import { DrawerModalScreen } from "./screens/drawer-modal";
-import { Provider as PaperProvider } from "react-native-paper";
+import {
+  ActivityIndicator,
+  Provider as PaperProvider,
+} from "react-native-paper";
+import HomeScreen from "./screens/laundry/home";
 const Stack = createStackNavigator();
 
 function LogoTitle(props) {
+  console.log(props);
   return (
     <View
       style={{
@@ -79,9 +80,7 @@ function LogoTitle(props) {
           fontSize: windowWidth / 15,
           fontWeight: "bold",
         }}
-      >
-        {props.title} Home
-      </Text>
+      ></Text>
     </View>
   );
 }
@@ -101,7 +100,11 @@ export default function App() {
   });
 
   if (!fontsLoaded) {
-    return <AppLoading />;
+    return (
+      <>
+        <ActivityIndicator animating={true} color={Theme.secondary} />
+      </>
+    );
   }
 
   return (
@@ -113,7 +116,6 @@ export default function App() {
               name="landing"
               component={LandingScreen}
               options={{ headerShown: false }}
-              // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
             />
             <Stack.Screen
               name="Login"
@@ -130,57 +132,61 @@ export default function App() {
             <Stack.Screen
               name="Home"
               component={HomeScreen}
-              options={{ headerShown: false }}
-              // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+              options={{
+                headerShown: false,
+                headerTitle: () => {
+                  return (
+                    <View
+                      style={{
+                        height: windowHeight / 14,
+                      }}
+                    >
+                      <Text style={{}}>{}</Text>
+                    </View>
+                  );
+                },
+              }}
             />
             <Stack.Screen
               name="signup"
               component={SignUpScreen}
               options={{ headerShown: false }}
-              // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
             />
             <Stack.Screen
               name="order"
               component={Orderdetail}
               options={{ headerShown: true }}
-              // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
             />
             <Stack.Screen
               name="summary"
               component={OrderSummary}
               options={{ headerShown: true }}
-              // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
             />
             <Stack.Screen
               name="drawer_modal"
               component={DrawerModalScreen}
               screenOptions={{ presentation: "modal" }}
               options={{ headerShown: false }}
-              // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
             />
             <Stack.Screen
               name="checkout"
               component={Checkout}
               options={{ headerShown: true }}
-              // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
             />
             <Stack.Screen
               name="editaddress"
               component={EditAddress}
               options={{ headerShown: true }}
-              // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
             />
             <Stack.Screen
               name="editprofile"
               component={EditProfileScreen}
               options={{ headerShown: true }}
-              // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
             />
             <Stack.Screen
               name="shop"
               component={ShopLandingScreen}
               options={{ headerShown: false }}
-              // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
             />
             <Stack.Screen
               name="shop_discover"
@@ -311,14 +317,13 @@ export default function App() {
             <Stack.Screen
               name="customer_payments"
               component={CustomerPayments}
-              options={{ headerShown: false }}
+              options={{ title: "Your Payments" }}
               // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
             />
             <Stack.Screen
               name="courier_details"
               component={CourierDetails}
               options={{ headerShown: false }}
-              // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
             />
             <Stack.Screen
               name="help"
@@ -368,6 +373,7 @@ export function Home() {
   );
 }
 const HeaderTitle = (props) => {
+  const auth = useSelector((state) => state.auth);
   return (
     <View
       style={{
@@ -378,11 +384,11 @@ const HeaderTitle = (props) => {
       <View>
         <Text
           style={{
-            fontFamily: Theme.fonts.primaryFont,
+            fontFamily: Theme.fonts.Nunito_700Bold,
             color: Theme.darkText,
           }}
         >
-          {props.title}
+          Welcome
         </Text>
         <Text
           style={{
@@ -390,7 +396,7 @@ const HeaderTitle = (props) => {
             color: Theme.darkText,
           }}
         >
-          Josh
+          {auth?.username ?? "User"}
         </Text>
       </View>
       <View
@@ -433,3 +439,68 @@ const HeaderTitle = (props) => {
     </View>
   );
 };
+// var hideAll = (
+//   <View
+//     style={{
+//       flexDirection: "row",
+//       justifyContent: "space-between",
+//       alignItems: "center",
+//     }}
+//   >
+//     <View>
+//       <Text
+//         style={{
+//           fontFamily: Theme.fonts.primaryFont,
+//           color: Theme.darkText,
+//         }}
+//       >
+//         {props.title}
+//       </Text>
+//       <Text
+//         style={{
+//           fontFamily: Theme.fonts.Nunito_600SemiBold,
+//           color: Theme.darkText,
+//         }}
+//       >
+//         Josh
+//       </Text>
+//     </View>
+//     <View
+//       style={{
+//         width: windowWidth / 2.3,
+//       }}
+//     ></View>
+//     <TouchableWithoutFeedback
+//       onPress={() => {
+//         navigation.navigate("notifications");
+//       }}
+//     >
+//       <View
+//         style={{
+//           position: "relative",
+//         }}
+//       >
+//         <Ionicons
+//           name="ios-notifications-sharp"
+//           size={24}
+//           color={Theme.icons.dark}
+//         />
+//         <Text
+//           style={{
+//             fontFamily: Theme.fonts.Nunito_600SemiBold,
+//             color: Theme.alert,
+//             fontSize: 10,
+//             padding: 3,
+//             backgroundColor: Theme.icons.bellIconBG,
+//             borderRadius: 15,
+//             textAlign: "center",
+//             position: "absolute",
+//             right: 0,
+//           }}
+//         >
+//           {5}
+//         </Text>
+//       </View>
+//     </TouchableWithoutFeedback>
+//   </View>
+// );

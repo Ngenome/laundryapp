@@ -9,14 +9,19 @@ import { changeScreen } from "../../redux/actions";
 import { windowHeight, windowWidth } from "../../styles";
 import { Theme } from "../../theme";
 import { CenteredButton } from "../../components";
-import {
-  FontAwesome,
-  MaterialCommunityIcons,
-  MaterialIcons,
-} from "@expo/vector-icons";
+import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useState } from "react";
-import { Modal } from "react-native";
-
+import colors from "../../theme/colors";
+import appearance from "../constants/appearance";
+import { createStackNavigator } from "@react-navigation/stack";
+const Stack = createStackNavigator();
+export const PaymentsStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Payments" component={CustomerPayments} />
+    </Stack.Navigator>
+  );
+};
 export default function CustomerPayments() {
   const dispatch = useDispatch();
 
@@ -27,7 +32,7 @@ export default function CustomerPayments() {
   const navigation = useNavigation();
   return (
     <LinearGradient
-      colors={Theme.gradientColors}
+      colors={["#29bbff", "#c2ecff"]}
       style={{
         height: windowHeight / 2.17,
         width: windowWidth,
@@ -36,36 +41,25 @@ export default function CustomerPayments() {
         alignItems: "center",
       }}
     >
-      <SafeAreaView
+      <View
         style={{
           flex: 1,
-
-          alignContent: "center",
-          alignItems: "center",
         }}
       >
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            setModalVisible(false);
-            navigation.goBack();
-          }}
-        ></Modal>
         <View
           style={{
             flexDirection: "row",
             justifyContent: "space-between",
             width: windowWidth / 1.2,
             alignItems: "center",
+
             height: windowHeight / 16,
           }}
         >
           <Text
             style={{
               fontFamily: Theme.fonts.Nunito_600SemiBold,
-              color: Theme.primary,
+              color: colors["common"].text.foreground,
               fontSize: Theme.sizes.smText + 5,
               textAlign: "center",
             }}
@@ -229,7 +223,7 @@ export default function CustomerPayments() {
             navigation.navigate("courier_details");
           }}
         />
-      </SafeAreaView>
+      </View>
     </LinearGradient>
   );
 }

@@ -27,7 +27,7 @@ import { BButton, FButton, IconInput, LabelledInput } from "../components";
 import { styles, windowHeight, windowWidth } from "../styles";
 
 import { createStackNavigator } from "@react-navigation/stack";
-import WashingMachine from "../assets/washing-machine.svg";
+
 import { useDispatch, useSelector } from "react-redux";
 import { changeScreen } from "../redux/actions";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";

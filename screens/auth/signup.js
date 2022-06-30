@@ -195,10 +195,7 @@ export default function SignUpScreen() {
   }, [phoneNumber]);
   return (
     <View style={styles.container}>
-      <LinearGradient
-        colors={Theme.gradientColors}
-        style={styles.splitGradient}
-      >
+      <View colors={Theme.gradientColors} style={styles.splitGradient}>
         <View
           style={{
             alignContent: "center",
@@ -208,22 +205,10 @@ export default function SignUpScreen() {
             width: windowWidth,
           }}
         >
-          <Text
-            style={{
-              color: Theme.primary,
-              fontSize: 14,
-              fontFamily: Theme.fonts.nunito,
-              marginBottom: 1,
-            }}
-          ></Text>
-          <Text
-            style={{
-              color: Theme.primary,
-              fontSize: 37,
-              fontFamily: Theme.fonts.Nunito_600SemiBold,
-              marginBottom: 1,
-            }}
-          ></Text>
+          <Image
+            source={require("../../assets/icon.png")}
+            style={{ height: windowHeight / 6.0, width: windowHeight / 6.0 }}
+          />
           <View
             style={{
               flexDirection: "row",
@@ -242,11 +227,12 @@ export default function SignUpScreen() {
               title="SIGN UP"
               fontSize={windowWidth / 24}
               bg
-              bgColor={Theme.tertiary}
+              color={Theme.foregroundOnColoredViews}
+              bgColor={Theme.secondary}
             />
           </View>
         </View>
-      </LinearGradient>
+      </View>
       <View
         style={{
           alignContent: "center",
@@ -409,7 +395,7 @@ export default function SignUpScreen() {
           family={Theme.fonts.Nunito_600SemiBold}
           title="SIGN UP"
           bg
-          bgColor={Theme.tertiary}
+          bgColor={Theme.secondary}
         />
       </View>
       <View
@@ -478,7 +464,7 @@ export default function SignUpScreen() {
             style={{
               fontSize: 15,
               fontFamily: Theme.fonts.nunito,
-              color: Theme.tertiary,
+              color: Theme.secondary,
               marginLeft: 2,
             }}
           >

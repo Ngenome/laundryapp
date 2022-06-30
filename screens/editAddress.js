@@ -12,6 +12,7 @@ import {
   TouchableOpacity,
   View,
   ScrollView,
+  Touchable,
 } from "react-native";
 import Checkbox from "expo-checkbox";
 import { createDrawerNavigator } from "@react-navigation/drawer";
@@ -19,15 +20,15 @@ import { LinearGradient } from "expo-linear-gradient";
 
 import { Theme } from "../theme";
 import AppLoading from "expo-app-loading";
-import { useEffect, useState } from "react";
-import { BButton, FButton, IconInput } from "../components";
+import { useEffect, useRef, useState } from "react";
+import { BButton, CenteredButton, FButton, IconInput } from "../components";
 import { styles, windowHeight, windowWidth } from "../styles";
 
 import { createStackNavigator } from "@react-navigation/stack";
-import WashingMachine from "../assets/washing-machine.svg";
+
 import { useDispatch } from "react-redux";
 import { changeScreen } from "../redux/actions";
-import { Entypo, MaterialIcons } from "@expo/vector-icons";
+import { Entypo, Feather, MaterialIcons } from "@expo/vector-icons";
 import MapView, { Circle, Marker, Callout } from "react-native-maps";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 const Stack = createStackNavigator();
@@ -82,11 +83,16 @@ export function EditAddress() {
     latitude: 37.78825,
     longitude: -122.4324,
   });
+  const placesRef = useRef(null);
   const dispatch = useDispatch();
   const navigation = useNavigation();
   useFocusEffect(() => {
     dispatch(changeScreen("Edit Address"));
   });
+  useEffect(() => {
+    placesRef.current?.setAddressText("Some Text");
+  }, []);
+
   return (
     <View
       style={{
@@ -104,7 +110,7 @@ export function EditAddress() {
       >
         Please enter your address
       </Text>
-      <GooglePlacesInput />
+      <GooglePlacesInput ref={placesRef} />
       <MapView
         initialRegion={{
           latitude: 37.78825,
@@ -137,8 +143,132 @@ export function EditAddress() {
         </Marker>
         <Circle center={pin} radius={300} />
       </MapView>
+
+      <View
+        style={{
+          height: windowHeight / 1.5,
+          backgroundColor: Theme.backgrounds.primaryBG,
+          borderTopLeftRadius: windowWidth / 20,
+          borderTopRightRadius: windowWidth / 20,
+          elevation: 20,
+          width: windowWidth,
+          position: "relative",
+          alignItems: "center",
+
+          bottom: windowHeight / 65,
+        }}
+      >
+        <View>
+          <Text
+            style={{
+              fontFamily: Theme.fonts.Nunito_700Bold,
+              color: Theme.secondary,
+              fontSize: windowWidth / 23,
+              marginTop: windowHeight / 40,
+              textAlign: "center",
+            }}
+          >
+            Your addresses
+          </Text>
+          <View>
+            <AddressInput
+              title="Pick up"
+              address="Dalassy 12 House 22"
+              onPress={() => {
+                placesRef.current?.focus();
+              }}
+            />
+            <AddressInput
+              title="Drop off"
+              address="Chakra  street House 22"
+              onPress={() => {
+                placesRef.current?.focus();
+              }}
+            />
+          </View>
+
+          <CenteredButton
+            hRatio={18}
+            wRatio={1.72}
+            style={{
+              marginTop: windowHeight / 14,
+              alignSelf: "center",
+              elevation: 10,
+            }}
+            radiusRatio={18}
+            left={
+              <Feather
+                name="truck"
+                color={Theme.foregroundOnColoredViews}
+                size={windowWidth / 20}
+                style={{
+                  marginHorizontal: windowWidth / 30,
+                }}
+              />
+            }
+            title="Save addresses"
+            bgColor={Theme.secondary}
+            onPress={() => {
+              // setModalVisible(true);
+            }}
+          />
+        </View>
+      </View>
     </View>
   );
 }
 
 // AIzaSyBrCRMGJ1e-qxRY7bz5pSSzucfAWMZamws
+
+const AddressInput = (props) => {
+  return (
+    <View
+      style={{
+        marginVertical: windowHeight / 60,
+      }}
+    >
+      <Text
+        style={{
+          fontFamily: Theme.fonts.Nunito_700Bold,
+          color: Theme.lightDark,
+          fontSize: windowWidth / 23,
+          marginBottom: windowHeight / 90,
+        }}
+      >
+        {props.title}
+      </Text>
+      <View
+        style={{
+          width: windowWidth / 1.2,
+          height: windowHeight / 20,
+          backgroundColor: Theme.backgrounds.primaryBG,
+          // elevation: 2,
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+
+          borderRadius: windowWidth / 40,
+        }}
+      >
+        <Text
+          style={{
+            fontFamily: Theme.fonts.Nunito_600SemiBold,
+            color: Theme.darkText,
+            fontSize: windowWidth / 23,
+            marginBottom: windowHeight / 90,
+            margin: 2,
+          }}
+        >
+          {props.address}
+        </Text>
+        <TouchableOpacity onPress={props.onPress}>
+          <Feather
+            name="edit"
+            color={Theme.icons.secondary}
+            size={windowWidth / 20}
+          />
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};

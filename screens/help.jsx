@@ -9,7 +9,7 @@ import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { Entypo } from "@expo/vector-icons";
 import MapView from "react-native-maps";
 import { List } from "react-native-paper";
-import { DefaultText } from "../components/texts";
+import { DefaultText } from "../components/mini/texts";
 const helpItems = [
   {
     name: "Help with a trip",

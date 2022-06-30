@@ -27,7 +27,7 @@ import { BButton, FButton, IconInput, LabelledInput } from "../components";
 import { styles, windowHeight, windowWidth } from "../styles";
 
 import { createStackNavigator } from "@react-navigation/stack";
-import WashingMachine from "../assets/washing-machine.svg";
+import { StripeProvider, useStripe } from "@stripe/stripe-react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { changeScreen } from "../redux/actions";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
@@ -35,6 +35,9 @@ import { CenteredButton, InlineItemValueView } from "../components";
 import { KeyboardAvoidingView } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { TouchableWithoutFeedback } from "react-native";
+import colors from "../theme/colors";
+import appearance from "./constants/appearance";
+import { STRIPE_PUBLISHABLE_KEY } from "@env";
 const Stack = createStackNavigator();
 const OrderCardy = () => {
   return (
@@ -124,6 +127,46 @@ export function Checkout() {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
   const auth = useSelector((state) => state.auth);
+  const [name, setName] = useState("");
+  const [amount, setAmount] = useState("1");
+  const stripe = useStripe();
+
+  const pay = async () => {
+    try {
+      const finalAmount = parseInt("100");
+      if (finalAmount < 1) return Alert.alert("You cannot donate below 1 INR");
+      const response = await fetch("http://192.168.43.168:5000/pay", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ amount: finalAmount, name: "Kelvin Ngeno" }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        return Alert.alert(data.message);
+      }
+      const initSheet = await stripe.initPaymentSheet({
+        paymentIntentClientSecret: data.clientSecret,
+        merchantDisplayName: "kelvin Ngeno",
+      });
+      if (initSheet.error) {
+        console.error(initSheet.error);
+        return Alert.alert(initSheet.error.message);
+      }
+      const presentSheet = await stripe.presentPaymentSheet({
+        clientSecret: data.clientSecret,
+      });
+      if (presentSheet.error) {
+        console.error(presentSheet.error);
+        return Alert.alert(presentSheet.error.message);
+      }
+      Alert.alert("Donated successfully! Thank you for the donation.");
+    } catch (err) {
+      console.error(err);
+      Alert.alert("Payment failed!");
+    }
+  };
   useFocusEffect(() => {
     dispatch(changeScreen("Check out"));
   });
@@ -154,145 +197,146 @@ export function Checkout() {
     return () => backHandler.remove();
   }, []);
   return (
-    <View
-      style={{
-        alignContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        flex: 1,
-      }}
-    >
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(false);
-          navigation.goBack();
+    <StripeProvider publishableKey={STRIPE_PUBLISHABLE_KEY}>
+      <View
+        style={{
+          alignContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+          flex: 1,
         }}
       >
-        <View
-          style={{
-            height: windowHeight,
-            width: windowWidth,
-            backgroundColor: "rgba(100,100,100,0.2)",
-            justifyContent: "center",
-            alignContent: "center",
-            alignItems: "center",
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(false);
+            navigation.goBack();
           }}
         >
           <View
             style={{
+              height: windowHeight,
+              width: windowWidth,
+              backgroundColor: "rgba(100,100,100,0.2)",
               justifyContent: "center",
               alignContent: "center",
               alignItems: "center",
-              height: windowHeight / 1.7,
-              width: windowWidth / 1.2,
-              backgroundColor: Theme.primaryBG,
-              borderRadius: windowHeight / 40,
             }}
           >
             <View
               style={{
-                height: windowHeight / 6,
-                width: windowHeight / 6,
-                backgroundColor: Theme.secondary,
-                borderRadius: windowHeight / 4,
                 justifyContent: "center",
                 alignContent: "center",
                 alignItems: "center",
+                height: windowHeight / 1.7,
+                width: windowWidth / 1.2,
+                backgroundColor: Theme.primaryBG,
+                borderRadius: windowHeight / 40,
               }}
             >
-              <MaterialIcons
-                name="done"
-                size={windowHeight / 7}
-                color={Theme.icons.primary}
+              <View
+                style={{
+                  height: windowHeight / 6,
+                  width: windowHeight / 6,
+                  backgroundColor: Theme.secondary,
+                  borderRadius: windowHeight / 4,
+                  justifyContent: "center",
+                  alignContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <MaterialIcons
+                  name="done"
+                  size={windowHeight / 7}
+                  color={Theme.icons.primary}
+                />
+              </View>
+              <Text
+                style={{
+                  fontFamily: Theme.fonts.secondary,
+                  color: Theme.darkText,
+                  fontSize: windowWidth / 20,
+                }}
+              >
+                Your order is successful
+              </Text>
+
+              <Text
+                style={{
+                  fontFamily: Theme.fonts.secondary,
+                  color: Theme.darkText,
+                  fontSize: Theme.sizes.smText + 5,
+                  textAlign: "center",
+                }}
+              >
+                You can track the order in the "Orders" section
+              </Text>
+
+              <CenteredButton
+                hRatio={17}
+                wRatio={2}
+                radiusRatio={Theme.sizes.mdRadius}
+                title="View your payments"
+                font={Theme.fonts.secondary}
+                color={Theme.foregroundOnColoredViews}
+                bgColor={Theme.primary}
+                onPress={() => {
+                  setModalVisible(false);
+                  navigation.navigate("customer_payments");
+                }}
               />
-            </View>
-            <Text
-              style={{
-                fontFamily: Theme.fonts.secondary,
-                color: Theme.darkText,
-                fontSize: windowWidth / 20,
-              }}
-            >
-              Your order is successful
-            </Text>
-
-            <Text
-              style={{
-                fontFamily: Theme.fonts.secondary,
-                color: Theme.darkText,
-                fontSize: Theme.sizes.smText + 5,
-                textAlign: "center",
-              }}
-            >
-              You can track the order in the "Orders" section
-            </Text>
-
-            <CenteredButton
-              hRatio={17}
-              wRatio={2}
-              radiusRatio={Theme.sizes.mdRadius}
-              title="View your payments"
-              font={Theme.fonts.secondary}
-              bgColor={
-                paySystem == "card" ? Theme.secondary : Theme.lightDarkBG
-              }
-              onPress={() => {
-                setModalVisible(false);
-                navigation.navigate("customer_payments");
-              }}
-            />
-            <View
-              style={{
-                marginTop: windowHeight / 30,
-              }}
-            >
-              <TouchableWithoutFeedback
-                onPress={() => {
-                  setModalVisible(false);
-                  navigation.navigate("Laundry");
+              <View
+                style={{
+                  marginTop: windowHeight / 30,
                 }}
               >
-                <Text
-                  style={{
-                    fontFamily: Theme.fonts.secondary,
-                    color: Theme.secondary,
-                    fontSize: Theme.sizes.smText + 5,
-                    textAlign: "center",
+                <TouchableWithoutFeedback
+                  onPress={() => {
+                    setModalVisible(false);
+                    navigation.navigate("Laundry");
                   }}
                 >
-                  Go to Home
-                </Text>
-              </TouchableWithoutFeedback>
-              <TouchableWithoutFeedback
-                onPress={() => {
-                  setModalVisible(false);
-                  BackHandler.exitApp();
-                }}
-              >
-                <Text
-                  style={{
-                    fontFamily: Theme.fonts.secondary,
-                    color: Theme.darkText,
-                    fontSize: Theme.sizes.smText + 5,
-                    textAlign: "center",
+                  <Text
+                    style={{
+                      fontFamily: Theme.fonts.secondary,
+                      color: Theme.secondary,
+                      fontSize: Theme.sizes.smText + 5,
+                      textAlign: "center",
+                    }}
+                  >
+                    Go to Home
+                  </Text>
+                </TouchableWithoutFeedback>
+                <TouchableWithoutFeedback
+                  onPress={() => {
+                    setModalVisible(false);
+                    BackHandler.exitApp();
                   }}
                 >
-                  EXIT APP
-                </Text>
-              </TouchableWithoutFeedback>
+                  <Text
+                    style={{
+                      fontFamily: Theme.fonts.secondary,
+                      color: Theme.darkText,
+                      fontSize: Theme.sizes.smText + 5,
+                      textAlign: "center",
+                    }}
+                  >
+                    EXIT APP
+                  </Text>
+                </TouchableWithoutFeedback>
+              </View>
             </View>
           </View>
-        </View>
-      </Modal>
-      <TopNavigation paySystem={paySystem} setPaySystem={setPaySystem} />
-      <CreditCard auth={auth} />
-      <TotalsView />
-      <CardDetails />
-      <BottomTotal popupState={setModalVisible} />
-    </View>
+        </Modal>
+        <TopNavigation paySystem={paySystem} setPaySystem={setPaySystem} />
+        <CreditCard auth={auth} />
+        <TotalsView />
+        <CardDetails />
+        <BottomTotal popupState={setModalVisible} pay={pay} />
+      </View>
+    </StripeProvider>
   );
 }
 function CardDetails() {
@@ -338,12 +382,14 @@ function TotalsView() {
         marginTop: windowHeight / 30,
         height: windowHeight / 6,
         width: windowWidth / 1.3,
-        backgroundColor: Theme.primary,
+        backgroundColor: colors[appearance].viewBackground,
         borderRadius: windowWidth / 25,
         alignItems: "center",
       }}
     >
       <InlineItemValueView
+        color={"red"}
+        valueColor={colors[appearance].tint}
         style={{
           width: windowWidth / 1.5,
 
@@ -377,7 +423,7 @@ function CreditCard(props) {
       style={{
         height: windowHeight / 6,
         width: windowWidth / 1.3,
-        backgroundColor: Theme.cardBg,
+        backgroundColor: Theme.secondary,
         borderRadius: Theme.sizes.mdRadius,
         alignItems: "center",
         marginTop: windowHeight / 54,
@@ -417,7 +463,7 @@ function CreditCard(props) {
         <Text
           style={{
             fontFamily: Theme.fonts.Nunito_600SemiBold,
-            color: Theme.primary,
+            color: colors[appearance].foreground,
             fontSize: windowWidth / 20,
           }}
         >
@@ -475,14 +521,15 @@ function BottomTotal(props) {
       </View>
       <TouchableOpacity
         onPress={() => {
-          popupState(true);
+          // popupState(true);
+          props.pay();
         }}
       >
         <View
           style={{
             height: windowHeight / 16,
             borderRadius: windowWidth / 30,
-            backgroundColor: Theme.secondary,
+            backgroundColor: Theme.primary,
             width: windowWidth / 2.5,
             justifyContent: "center",
 
@@ -493,7 +540,7 @@ function BottomTotal(props) {
           <Text
             style={{
               fontFamily: Theme.fonts.Nunito_600SemiBold,
-              color: Theme.primary,
+              color: colors[appearance].foreground,
               fontSize: windowWidth / 23,
               textAlign: "left",
             }}
@@ -522,6 +569,11 @@ function TopNavigation(props) {
       <CenteredButton
         hRatio={20}
         wRatio={4}
+        color={
+          paySystem == "card"
+            ? colors[appearance].foreground
+            : Theme.lightDarkBG
+        }
         radiusRatio={Theme.sizes.mdRadius}
         title="Credit card"
         bgColor={paySystem == "card" ? Theme.secondary : Theme.lightDarkBG}
@@ -532,6 +584,9 @@ function TopNavigation(props) {
       <CenteredButton
         hRatio={20}
         wRatio={4}
+        color={
+          paySystem == "paypal" ? colors[appearance].foreground : Theme.primary
+        }
         radiusRatio={Theme.sizes.mdRadius}
         title="Pay pal"
         bgColor={paySystem == "paypal" ? Theme.secondary : Theme.lightDarkBG}
@@ -544,6 +599,11 @@ function TopNavigation(props) {
         wRatio={4}
         radiusRatio={Theme.sizes.mdRadius}
         title="Apple pay"
+        color={
+          paySystem == "applepay"
+            ? colors[appearance].foreground
+            : Theme.primary
+        }
         bgColor={paySystem == "applepay" ? Theme.secondary : Theme.lightDarkBG}
         onPress={() => {
           setPaySystem("applepay");
@@ -588,7 +648,7 @@ function TallyCard(props) {
         <Text
           style={{
             fontFamily: Theme.fonts.Nunito_600SemiBold,
-            color: Theme.darkText,
+            color: colors[appearance].foreground,
             fontSize: windowWidth / 25,
           }}
         >

@@ -6,6 +6,14 @@ export const screenReducer = (state = "home", action) => {
       return state;
   }
 };
+export const updateOrderScreenReducer = (state = "home", action) => {
+  switch (action.type) {
+    case "UPDATEORDERSCREEN":
+      return action.payload;
+    default:
+      return state;
+  }
+};
 export const DrawerScreenReducer = (state = "home", action) => {
   switch (action.type) {
     case "CHANGE_DRAWER_SCREEN":
